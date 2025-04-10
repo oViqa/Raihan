@@ -9,12 +9,20 @@ export default function Home() {
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-4">Raihan Store</h1>
           <p className="text-xl md:text-2xl mb-8">Quality products at affordable prices</p>
-          <Link 
-            href="/products" 
-            className="bg-white text-blue-600 px-6 py-3 rounded-lg font-medium hover:bg-blue-50 transition-colors"
-          >
-            Browse Products
-          </Link>
+          <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+            <Link 
+              href="/products" 
+              className="bg-white text-blue-600 px-6 py-3 rounded-lg font-medium hover:bg-blue-50 transition-colors"
+            >
+              Browse Products
+            </Link>
+            <Link 
+              href="/admin/login" 
+              className="bg-gray-800 text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-700 transition-colors"
+            >
+              Admin Access
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -88,6 +96,14 @@ export default function Home() {
             <h3 className="text-2xl font-bold mb-4">Raihan Store</h3>
             <p className="mb-4">Quality products at affordable prices</p>
             <p className="text-gray-400">© {new Date().getFullYear()} Raihan. All rights reserved.</p>
+            <div className="mt-4">
+              <Link 
+                href="/admin/login"
+                className="text-gray-400 hover:text-white text-sm"
+              >
+                Admin Portal
+              </Link>
+            </div>
           </div>
         </div>
       </footer>
