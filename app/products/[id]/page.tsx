@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FiShoppingBag, FiArrowLeft } from 'react-icons/fi';
+import { FiShoppingBag, FiArrowLeft, FiPlus, FiMinus } from 'react-icons/fi';
 import { getProductById } from '@/app/lib/product';
 import { Product } from '@/app/lib/database-schema';
 import WhatsAppButton from '@/app/components/WhatsAppButton';
@@ -18,6 +18,7 @@ export default function ProductDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [imageLoading, setImageLoading] = useState(true);
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     async function fetchProduct() {
@@ -46,6 +47,18 @@ export default function ProductDetailPage() {
     fetchProduct();
   }, [params.id]);
 
+  const incrementQuantity = () => {
+    if (product && quantity < product.stock_quantity) {
+      setQuantity(quantity + 1);
+    }
+  };
+
+  const decrementQuantity = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
+
   if (loading) {
     return (
       <div className="container mx-auto px-4 py-8">
@@ -69,7 +82,8 @@ export default function ProductDetailPage() {
     );
   }
 
-  const whatsAppProps = getWhatsAppButtonProps(product);
+  const whatsAppProps = getWhatsAppButtonProps(product, quantity);
+  const isOutOfStock = product.stock_quantity === 0;
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -135,12 +149,55 @@ export default function ProductDetailPage() {
               </div>
             )}
             
+            {/* Quantity Selector */}
+            {!isOutOfStock && (
+              <div className="mb-6">
+                <h3 className="text-lg font-medium mb-2">Quantity</h3>
+                <div className="flex items-center">
+                  <button 
+                    onClick={decrementQuantity} 
+                    disabled={quantity <= 1}
+                    className="p-2 border border-gray-300 rounded-l-md bg-gray-50 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                    aria-label="Decrease quantity"
+                  >
+                    <FiMinus className="h-4 w-4" />
+                  </button>
+                  
+                  <div className="px-4 py-2 border-t border-b border-gray-300 text-center min-w-[50px]">
+                    {quantity}
+                  </div>
+                  
+                  <button 
+                    onClick={incrementQuantity} 
+                    disabled={quantity >= product.stock_quantity}
+                    className="p-2 border border-gray-300 rounded-r-md bg-gray-50 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                    aria-label="Increase quantity"
+                  >
+                    <FiPlus className="h-4 w-4" />
+                  </button>
+                  
+                  {quantity > 1 && (
+                    <div className="ml-4 text-gray-700 font-medium">
+                      Total: {formatPrice(Number(product.price) * quantity)}
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+            
+            {/* Purchase Button */}
             <div className="mt-6">
-              <WhatsAppButton 
-                href={whatsAppProps.href}
-                message={whatsAppProps.message}
-                className="w-full justify-center py-3 text-base"
-              />
+              {isOutOfStock ? (
+                <div className="p-3 bg-gray-200 text-gray-600 rounded-md text-center font-medium">
+                  Out of Stock
+                </div>
+              ) : (
+                <WhatsAppButton 
+                  href={whatsAppProps.href}
+                  message={whatsAppProps.message}
+                  className="w-full justify-center py-3 text-base"
+                />
+              )}
             </div>
           </div>
         </div>

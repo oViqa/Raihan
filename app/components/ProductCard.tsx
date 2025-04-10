@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { FiShoppingBag, FiSend } from 'react-icons/fi';
 import { Product } from '@/app/lib/database-schema';
-import { formatPrice } from '@/app/lib/whatsapp';
+import { formatPrice, createWhatsAppLink } from '@/app/lib/whatsapp';
 
 interface ProductCardProps {
   product: Product;
@@ -13,12 +13,9 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const [isLoading, setIsLoading] = useState(true);
-  const phoneNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '1234567890';
 
   const handleWhatsAppInquiry = () => {
-    const message = `Hello, I'm interested in the ${product.name} (ID: ${product.id}). Could you provide more information?`;
-    const encodedMessage = encodeURIComponent(message);
-    window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
+    window.open(createWhatsAppLink(product), '_blank');
   };
 
   const productUrl = `/products/${product.id}`;
@@ -86,9 +83,10 @@ export default function ProductCard({ product }: ProductCardProps) {
           <button
             onClick={handleWhatsAppInquiry}
             className="flex items-center text-sm bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded-md transition-colors"
+            disabled={product.stock_quantity === 0}
           >
             <FiSend className="mr-1 h-4 w-4" />
-            <span>Inquire</span>
+            <span>Buy Now</span>
           </button>
           
           <span className="text-sm text-gray-500">
