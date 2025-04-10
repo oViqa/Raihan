@@ -5,7 +5,9 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { getCategories } from '@/app/lib/category';
 import { Category } from '@/app/lib/database-schema';
-import { FiMenu, FiX, FiShoppingBag } from 'react-icons/fi';
+import { FiMenu, FiX } from 'react-icons/fi';
+import { GiHerbsBundle, GiMountainRoad } from 'react-icons/gi';
+import { FaLeaf } from 'react-icons/fa';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -35,25 +37,32 @@ export default function Navbar() {
   }, [pathname]);
 
   const isActive = (path: string) => {
-    return pathname === path ? 'text-blue-600' : 'text-gray-700 hover:text-blue-600';
+    return pathname === path 
+      ? 'text-[#4a5a2b] font-bold' 
+      : 'text-[#6b7f3e] hover:text-[#4a5a2b]';
   };
 
   return (
-    <nav className="bg-white shadow-md sticky top-0 z-40">
+    <nav className="bg-white sticky top-0 z-40 border-b-2 border-[#d3c8ab] shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
+        <div className="flex justify-between h-18 py-2">
           {/* Logo and desktop navigation */}
           <div className="flex items-center">
             <Link href="/" className="flex-shrink-0 flex items-center">
-              <FiShoppingBag className="h-6 w-6 text-blue-600" />
-              <span className="ml-2 text-xl font-bold text-gray-900">Raihan Store</span>
+              <GiHerbsBundle className="h-8 w-8 text-[#6b7f3e]" />
+              <div className="ml-2 flex flex-col">
+                <span className="text-xl font-bold text-[#4a5a2b]">Moroccan Herbs</span>
+                <span className="text-xs text-[#8e846b]">Natural Products from Atlas Mountains</span>
+              </div>
             </Link>
             
-            <div className="hidden md:ml-6 md:flex md:space-x-8">
+            <div className="hidden md:ml-8 md:flex md:space-x-6">
               <Link 
                 href="/" 
-                className={`inline-flex items-center px-1 pt-1 text-sm font-medium border-b-2 ${
-                  pathname === '/' ? 'border-blue-500 text-gray-900' : 'border-transparent hover:border-gray-300'
+                className={`inline-flex items-center px-3 py-2 rounded-md text-sm font-medium border-b-2 ${
+                  pathname === '/' 
+                    ? 'border-[#c17f24] text-[#4a5a2b]' 
+                    : 'border-transparent text-[#6b7f3e] hover:text-[#4a5a2b] hover:border-[#d3c8ab]'
                 }`}
               >
                 Home
@@ -61,12 +70,13 @@ export default function Navbar() {
               
               <Link 
                 href="/products" 
-                className={`inline-flex items-center px-1 pt-1 text-sm font-medium border-b-2 ${
+                className={`inline-flex items-center px-3 py-2 rounded-md text-sm font-medium border-b-2 ${
                   pathname === '/products' || pathname.startsWith('/products/') 
-                    ? 'border-blue-500 text-gray-900' 
-                    : 'border-transparent hover:border-gray-300'
+                    ? 'border-[#c17f24] text-[#4a5a2b]' 
+                    : 'border-transparent text-[#6b7f3e] hover:text-[#4a5a2b] hover:border-[#d3c8ab]'
                 }`}
               >
+                <FaLeaf className="mr-1 h-4 w-4" />
                 All Products
               </Link>
               
@@ -74,15 +84,27 @@ export default function Navbar() {
                 <Link 
                   key={category.id}
                   href={`/products?category=${category.id}`}
-                  className={`inline-flex items-center px-1 pt-1 text-sm font-medium border-b-2 ${
+                  className={`inline-flex items-center px-3 py-2 rounded-md text-sm font-medium border-b-2 ${
                     pathname === `/products` && new URLSearchParams(window.location.search).get('category') === category.id
-                      ? 'border-blue-500 text-gray-900' 
-                      : 'border-transparent hover:border-gray-300'
+                      ? 'border-[#c17f24] text-[#4a5a2b]' 
+                      : 'border-transparent text-[#6b7f3e] hover:text-[#4a5a2b] hover:border-[#d3c8ab]'
                   }`}
                 >
                   {category.name}
                 </Link>
               ))}
+              
+              <Link 
+                href="/about" 
+                className={`inline-flex items-center px-3 py-2 rounded-md text-sm font-medium border-b-2 ${
+                  pathname === '/about' 
+                    ? 'border-[#c17f24] text-[#4a5a2b]' 
+                    : 'border-transparent text-[#6b7f3e] hover:text-[#4a5a2b] hover:border-[#d3c8ab]'
+                }`}
+              >
+                <GiMountainRoad className="mr-1 h-4 w-4" />
+                Our Story
+              </Link>
             </div>
           </div>
 
@@ -90,7 +112,7 @@ export default function Navbar() {
           <div className="flex items-center md:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-100 focus:outline-none"
+              className="inline-flex items-center justify-center p-2 rounded-md text-[#6b7f3e] hover:text-[#4a5a2b] hover:bg-[#f0ece2] focus:outline-none"
               aria-expanded={isMenuOpen}
             >
               <span className="sr-only">{isMenuOpen ? 'Close menu' : 'Open menu'}</span>
@@ -106,7 +128,7 @@ export default function Navbar() {
           <div className="hidden md:flex md:items-center">
             <Link 
               href="/admin/login" 
-              className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-100"
+              className="ml-4 px-3 py-2 rounded-md text-sm font-medium bg-[#f0ece2] text-[#4a5a2b] hover:bg-[#d3c8ab] transition-colors"
             >
               Admin Portal
             </Link>
@@ -116,13 +138,13 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       <div className={`${isMenuOpen ? 'block' : 'hidden'} md:hidden`}>
-        <div className="pt-2 pb-3 space-y-1">
+        <div className="pt-2 pb-3 space-y-1 bg-[#f8f5ec]">
           <Link 
             href="/" 
             className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium ${
               pathname === '/' 
-                ? 'border-blue-500 text-blue-700 bg-blue-50' 
-                : 'border-transparent text-gray-700 hover:bg-gray-50 hover:border-gray-300'
+                ? 'border-[#c17f24] text-[#4a5a2b] bg-[#f0ece2]' 
+                : 'border-transparent text-[#6b7f3e] hover:bg-[#f0ece2] hover:border-[#d3c8ab]'
             }`}
           >
             Home
@@ -132,8 +154,8 @@ export default function Navbar() {
             href="/products" 
             className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium ${
               pathname === '/products' 
-                ? 'border-blue-500 text-blue-700 bg-blue-50' 
-                : 'border-transparent text-gray-700 hover:bg-gray-50 hover:border-gray-300'
+                ? 'border-[#c17f24] text-[#4a5a2b] bg-[#f0ece2]' 
+                : 'border-transparent text-[#6b7f3e] hover:bg-[#f0ece2] hover:border-[#d3c8ab]'
             }`}
           >
             All Products
@@ -143,15 +165,30 @@ export default function Navbar() {
             <Link 
               key={category.id}
               href={`/products?category=${category.id}`}
-              className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-700 hover:bg-gray-50 hover:border-gray-300"
+              className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium ${
+                pathname === '/products' && new URLSearchParams(window.location.search).get('category') === category.id
+                  ? 'border-[#c17f24] text-[#4a5a2b] bg-[#f0ece2]' 
+                  : 'border-transparent text-[#6b7f3e] hover:bg-[#f0ece2] hover:border-[#d3c8ab]'
+              }`}
             >
               {category.name}
             </Link>
           ))}
           
           <Link 
+            href="/about" 
+            className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium ${
+              pathname === '/about' 
+                ? 'border-[#c17f24] text-[#4a5a2b] bg-[#f0ece2]' 
+                : 'border-transparent text-[#6b7f3e] hover:bg-[#f0ece2] hover:border-[#d3c8ab]'
+            }`}
+          >
+            Our Story
+          </Link>
+          
+          <Link 
             href="/admin/login" 
-            className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-700 hover:bg-gray-50 hover:border-gray-300"
+            className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-[#4a5a2b] bg-[#f0ece2] hover:bg-[#d3c8ab]"
           >
             Admin Portal
           </Link>

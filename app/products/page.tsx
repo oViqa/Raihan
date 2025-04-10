@@ -7,6 +7,8 @@ import { getCategories } from '@/app/lib/category';
 import { Product, Category } from '@/app/lib/database-schema';
 import ProductCard from '@/app/components/ProductCard';
 import FloatingWhatsAppButton from '@/app/components/FloatingWhatsAppButton';
+import { FaLeaf, FaSearch } from 'react-icons/fa';
+import { GiHerbsBundle, GiMortar } from 'react-icons/gi';
 import Link from 'next/link';
 
 export default function ProductsPage() {
@@ -114,9 +116,9 @@ export default function ProductsPage() {
   
   if (loading) {
     return (
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-12">
         <div className="flex justify-center items-center min-h-[50vh]">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#6b7f3e]"></div>
         </div>
       </div>
     );
@@ -124,12 +126,12 @@ export default function ProductsPage() {
   
   if (error) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="bg-red-50 p-4 rounded-md">
-          <p className="text-red-700">{error}</p>
+      <div className="container mx-auto px-4 py-12">
+        <div className="bg-[#f8d7cf] p-6 rounded-md border-l-4 border-[#b54e32]">
+          <p className="text-[#b54e32] font-medium">{error}</p>
           <button 
             onClick={() => window.location.reload()}
-            className="mt-2 text-red-700 underline"
+            className="mt-3 text-[#6b7f3e] hover:text-[#4a5a2b] font-medium"
           >
             Try again
           </button>
@@ -139,24 +141,31 @@ export default function ProductsPage() {
   }
   
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-12 moroccan-pattern">
       {/* Page Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">
-          {selectedCategory ? getCategoryName(selectedCategory) : 'All Products'}
-        </h1>
-        <p className="text-gray-600">
-          {filteredProducts.length} {filteredProducts.length === 1 ? 'product' : 'products'} available
+      <div className="mb-8 text-center max-w-3xl mx-auto">
+        <div className="flex items-center justify-center mb-2">
+          <GiHerbsBundle className="h-8 w-8 text-[#6b7f3e] mr-2" />
+          <h1 className="text-3xl font-bold text-[#4a5a2b]">
+            {selectedCategory ? getCategoryName(selectedCategory) : 'Authentic Moroccan Products'}
+          </h1>
+        </div>
+        <p className="text-[#8e846b] mb-4">
+          Hand-harvested by local farmers using traditional methods passed down through generations
         </p>
+        <div className="h-1 w-40 bg-[#d3c8ab] mx-auto rounded-full"></div>
       </div>
       
       {/* Filters and Search */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-8">
         {/* Sidebar Filters */}
         <div className="lg:col-span-1">
-          <div className="bg-white p-6 rounded-lg shadow-sm">
-            <h2 className="text-lg font-semibold mb-4">Categories</h2>
-            <div className="space-y-2">
+          <div className="moroccan-card p-6">
+            <div className="flex items-center mb-4">
+              <FaLeaf className="h-5 w-5 text-[#6b7f3e] mr-2" />
+              <h2 className="text-lg font-semibold text-[#4a5a2b]">Shop by Category</h2>
+            </div>
+            <div className="space-y-3">
               <div className="flex items-center">
                 <input
                   id="category-all"
@@ -164,10 +173,10 @@ export default function ProductsPage() {
                   name="category"
                   checked={selectedCategory === ''}
                   onChange={() => handleCategoryChange('')}
-                  className="h-4 w-4 text-blue-600 focus:ring-blue-500"
+                  className="h-4 w-4 text-[#6b7f3e] focus:ring-[#6b7f3e]"
                 />
-                <label htmlFor="category-all" className="ml-3 text-sm text-gray-700">
-                  All Categories
+                <label htmlFor="category-all" className="ml-3 text-sm text-[#4a5a2b] font-medium">
+                  All Products
                 </label>
               </div>
               
@@ -179,9 +188,9 @@ export default function ProductsPage() {
                     name="category"
                     checked={selectedCategory === category.id}
                     onChange={() => handleCategoryChange(category.id)}
-                    className="h-4 w-4 text-blue-600 focus:ring-blue-500"
+                    className="h-4 w-4 text-[#6b7f3e] focus:ring-[#6b7f3e]"
                   />
-                  <label htmlFor={`category-${category.id}`} className="ml-3 text-sm text-gray-700">
+                  <label htmlFor={`category-${category.id}`} className="ml-3 text-sm text-[#4a5a2b] font-medium">
                     {category.name}
                   </label>
                 </div>
@@ -190,20 +199,23 @@ export default function ProductsPage() {
           </div>
           
           {/* Search Box */}
-          <div className="bg-white p-6 rounded-lg shadow-sm mt-4">
-            <h2 className="text-lg font-semibold mb-4">Search Products</h2>
+          <div className="moroccan-card p-6 mt-4">
+            <div className="flex items-center mb-4">
+              <FaSearch className="h-4 w-4 text-[#6b7f3e] mr-2" />
+              <h2 className="text-lg font-semibold text-[#4a5a2b]">Find Products</h2>
+            </div>
             <form onSubmit={handleSearchSubmit}>
               <div className="relative">
                 <input
                   type="text"
                   value={search}
                   onChange={handleSearchChange}
-                  placeholder="Search products..."
-                  className="w-full border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Search by name or ingredients..."
+                  className="w-full border border-[#d3c8ab] rounded-md py-2 px-3 text-[#4a5a2b] leading-tight focus:outline-none focus:ring-2 focus:ring-[#6b7f3e] focus:border-transparent"
                 />
                 <button
                   type="submit"
-                  className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 text-[#8e846b] hover:text-[#6b7f3e]"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -212,23 +224,70 @@ export default function ProductsPage() {
               </div>
             </form>
           </div>
+          
+          {/* Benefits Box */}
+          <div className="moroccan-card p-6 mt-4 bg-[#f8f5ec]">
+            <div className="flex items-center mb-4">
+              <GiMortar className="h-5 w-5 text-[#c17f24] mr-2" />
+              <h2 className="text-lg font-semibold text-[#4a5a2b]">Our Promise</h2>
+            </div>
+            <ul className="space-y-2 text-sm text-[#4a5a2b]">
+              <li className="flex items-start">
+                <span className="text-[#6b7f3e] mr-2">✓</span>
+                <span>100% natural ingredients</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-[#6b7f3e] mr-2">✓</span>
+                <span>Harvested by local farmers</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-[#6b7f3e] mr-2">✓</span>
+                <span>Traditional processing methods</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-[#6b7f3e] mr-2">✓</span>
+                <span>No chemicals or preservatives</span>
+              </li>
+            </ul>
+          </div>
         </div>
         
         {/* Product Grid */}
         <div className="lg:col-span-3">
-          {filteredProducts.length === 0 ? (
-            <div className="bg-white p-10 rounded-lg text-center">
-              <h3 className="text-lg font-medium text-gray-900 mb-2">No products found</h3>
-              <p className="text-gray-600 mb-4">Try adjusting your search or filter to find what you're looking for.</p>
+          {/* Results indicator */}
+          <div className="mb-5 bg-[#f0ece2] px-4 py-3 rounded-md flex items-center justify-between">
+            <p className="text-[#4a5a2b] font-medium">
+              <span className="text-[#c17f24] font-bold">{filteredProducts.length}</span> {filteredProducts.length === 1 ? 'product' : 'products'} found
+            </p>
+            
+            {(selectedCategory || search) && (
               <button
                 onClick={() => {
                   setSelectedCategory('');
                   setSearch('');
                   window.history.pushState({}, '', '/products');
                 }}
-                className="text-blue-600 font-medium hover:text-blue-800"
+                className="text-sm text-[#6b7f3e] hover:text-[#4a5a2b] font-medium"
               >
-                Reset filters
+                Clear filters
+              </button>
+            )}
+          </div>
+          
+          {filteredProducts.length === 0 ? (
+            <div className="moroccan-card p-10 text-center">
+              <GiHerbsBundle className="h-16 w-16 text-[#d3c8ab] mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-[#4a5a2b] mb-2">No products found</h3>
+              <p className="text-[#8e846b] mb-4">Try adjusting your search or filter to find what you're looking for.</p>
+              <button
+                onClick={() => {
+                  setSelectedCategory('');
+                  setSearch('');
+                  window.history.pushState({}, '', '/products');
+                }}
+                className="px-4 py-2 bg-[#6b7f3e] text-white rounded-md hover:bg-[#4a5a2b] transition-colors"
+              >
+                View all products
               </button>
             </div>
           ) : (

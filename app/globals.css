@@ -3,6 +3,18 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  /* Moroccan herb shop color palette */
+  --color-primary: #6b7f3e;      /* Olive green */
+  --color-primary-dark: #4a5a2b; /* Darker olive */
+  --color-secondary: #c17f24;    /* Amber/honey */
+  --color-accent: #b54e32;       /* Terracotta */
+  --color-neutral-light: #f0ece2; /* Light beige */
+  --color-neutral: #d3c8ab;      /* Beige */
+  --color-neutral-dark: #8e846b; /* Dark beige */
+  --color-text: #323232;         /* Near black */
+
+  /* Pattern for background */
+  --pattern-size: 25px;
 }
 
 @theme inline {
@@ -23,4 +35,106 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  color: var(--color-text);
+  background-color: var(--color-neutral-light);
+  background-image: 
+    radial-gradient(var(--color-neutral) 3px, transparent 3px),
+    radial-gradient(var(--color-neutral) 3px, transparent 3px);
+  background-size: var(--pattern-size) var(--pattern-size);
+  background-position: 0 0, calc(var(--pattern-size)/2) calc(var(--pattern-size)/2);
+  background-attachment: fixed;
+}
+
+/* Moroccan-inspired button styles */
+.btn-primary {
+  @apply px-6 py-3 bg-[#6b7f3e] text-white rounded-md hover:bg-[#4a5a2b] transition-colors font-medium;
+}
+
+.btn-secondary {
+  @apply px-6 py-3 bg-[#c17f24] text-white rounded-md hover:bg-[#a06216] transition-colors font-medium;
+}
+
+.btn-accent {
+  @apply px-6 py-3 bg-[#b54e32] text-white rounded-md hover:bg-[#923f28] transition-colors font-medium;
+}
+
+/* Moroccan card styling */
+.moroccan-card {
+  @apply bg-white rounded-lg overflow-hidden shadow-md;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  position: relative;
+}
+
+.moroccan-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-accent) 100%);
+}
+
+/* Moroccan pattern background */
+.moroccan-pattern {
+  position: relative;
+}
+
+.moroccan-pattern::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(45deg, #8e846b 25%, transparent 25%), 
+    linear-gradient(-45deg, #8e846b 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #8e846b 75%),
+    linear-gradient(-45deg, transparent 75%, #8e846b 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+  opacity: 0.05;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-neutral-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-neutral-dark);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* Headings with Moroccan flair */
+h1.moroccan-heading,
+h2.moroccan-heading,
+h3.moroccan-heading {
+  @apply font-bold relative inline-block;
+  color: var(--color-primary-dark);
+}
+
+h1.moroccan-heading::after,
+h2.moroccan-heading::after,
+h3.moroccan-heading::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  margin-top: 4px;
+  border-radius: 3px;
 }

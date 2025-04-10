@@ -1,6 +1,6 @@
 'use client';
 
-import { FaWhatsapp } from 'react-icons/fa';
+import { FaWhatsapp, FaLeaf } from 'react-icons/fa';
 
 export default function FloatingWhatsAppButton() {
   // Default WhatsApp number, should be replaced with your business number
@@ -8,7 +8,7 @@ export default function FloatingWhatsAppButton() {
   
   // Create a general store inquiry message
   const generalInquiryMessage = encodeURIComponent(
-    "Hello! I'm browsing your online store and would like to ask about your products and services. Could you provide more information?"
+    "Hello! I'm interested in your natural Moroccan products. Could you tell me more about your herbs, honey, and other traditional offerings?"
   );
   
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${generalInquiryMessage}`;
@@ -18,11 +18,16 @@ export default function FloatingWhatsAppButton() {
       href={whatsappLink}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-6 right-6 bg-green-500 text-white rounded-full p-4 shadow-lg hover:bg-green-600 transition-colors z-50 flex items-center justify-center"
+      className="fixed bottom-6 right-6 bg-[#6b7f3e] text-white rounded-full p-4 shadow-lg hover:bg-[#4a5a2b] transition-all z-50 flex items-center justify-center group hover:scale-105"
       aria-label="Contact us on WhatsApp"
     >
-      <FaWhatsapp className="w-6 h-6" />
-      <span className="hidden md:inline md:ml-2 text-sm font-medium">Chat with us</span>
+      <div className="flex items-center">
+        <FaWhatsapp className="w-6 h-6" />
+        <span className="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-500 ease-in-out md:ml-2 text-sm font-medium whitespace-nowrap">
+          Ask about our herbs
+        </span>
+      </div>
+      <FaLeaf className="absolute -top-2 -right-1 text-[#c17f24] transform rotate-45 opacity-0 group-hover:opacity-100 transition-opacity" />
     </a>
   );
 } 
