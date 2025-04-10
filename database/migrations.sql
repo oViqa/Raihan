@@ -83,6 +83,30 @@ ON admins FOR UPDATE USING (true);
 CREATE POLICY "Anyone can delete admins" 
 ON admins FOR DELETE USING (true);
 
+-- Migration: Create storage bucket for product images
+-- Note: This requires the storage extension to be enabled
+INSERT INTO storage.buckets (id, name, public) VALUES ('product-images', 'product-images', true);
+
+-- Set up storage bucket permissions (public access)
+CREATE POLICY "Product images are publicly accessible"
+ON storage.objects FOR SELECT
+USING (bucket_id = 'product-images');
+
+-- Allow uploads to product-images bucket
+CREATE POLICY "Anyone can upload product images"
+ON storage.objects FOR INSERT
+WITH CHECK (bucket_id = 'product-images');
+
+-- Allow updates to product-images bucket
+CREATE POLICY "Anyone can update product images"
+ON storage.objects FOR UPDATE
+USING (bucket_id = 'product-images');
+
+-- Allow deletes from product-images bucket
+CREATE POLICY "Anyone can delete product images"
+ON storage.objects FOR DELETE
+USING (bucket_id = 'product-images');
+
 -- Migration: Insert some default categories for testing
 INSERT INTO categories (name, description) VALUES
 ('Electronics', 'Electronic devices and gadgets'),
@@ -94,3 +118,27 @@ INSERT INTO categories (name, description) VALUES
 -- Migration: Insert a default admin account
 INSERT INTO admins (email, password) VALUES
 ('admin@example.com', 'admin123'); 
+
+
+-- Create storage bucket for product images
+INSERT INTO storage.buckets (id, name, public) VALUES ('product-images', 'product-images', true);
+
+-- Set up storage bucket permissions (public access)
+CREATE POLICY "Product images are publicly accessible"
+ON storage.objects FOR SELECT
+USING (bucket_id = 'product-images');
+
+-- Allow uploads to product-images bucket
+CREATE POLICY "Anyone can upload product images"
+ON storage.objects FOR INSERT
+WITH CHECK (bucket_id = 'product-images');
+
+-- Allow updates to product-images bucket
+CREATE POLICY "Anyone can update product images"
+ON storage.objects FOR UPDATE
+USING (bucket_id = 'product-images');
+
+-- Allow deletes from product-images bucket
+CREATE POLICY "Anyone can delete product images"
+ON storage.objects FOR DELETE
+USING (bucket_id = 'product-images');

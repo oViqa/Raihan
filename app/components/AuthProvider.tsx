@@ -21,29 +21,37 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let subscription: { unsubscribe: () => void } | null = null;
+    
     // Check for active session
     const getInitialSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      
-      if (session) {
-        setUser(session.user);
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        
+        if (session) {
+          setUser(session.user);
+        }
+        
+        // Listen for auth changes
+        const { data } = supabase.auth.onAuthStateChange(
+          (_event, session) => {
+            setUser(session?.user ?? null);
+            setLoading(false);
+          }
+        );
+        
+        subscription = data.subscription;
+      } catch (error) {
+        console.error('Error in auth setup:', error);
+      } finally {
+        setLoading(false);
       }
-      
-      setLoading(false);
     };
 
     getInitialSession();
 
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
-        setUser(session?.user ?? null);
-        setLoading(false);
-      }
-    );
-
     return () => {
-      subscription.unsubscribe();
+      if (subscription) subscription.unsubscribe();
     };
   }, []);
 
