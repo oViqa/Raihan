@@ -51,7 +51,7 @@ export default function Navbar() {
             <Link href="/" className="flex-shrink-0 flex items-center">
               <GiHerbsBundle className="h-8 w-8 text-[#6b7f3e]" />
               <div className="ml-2 flex flex-col">
-                <span className="text-xl font-bold text-[#4a5a2b]">Moroccan Herbs</span>
+                <span className="text-xl font-bold text-[#4a5a2b]">Coopérative Raihan</span>
                 <span className="text-xs text-[#8e846b]">Natural Products from Atlas Mountains</span>
               </div>
             </Link>

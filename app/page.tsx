@@ -28,7 +28,7 @@ export default async function Home() {
         <div className="container mx-auto px-4 relative z-10 h-full flex flex-col justify-center items-center text-center">
           <GiHerbsBundle className="text-[#c17f24] h-20 w-20 mb-6 animate-pulse" />
           <h1 className="text-5xl md:text-7xl font-bold mb-4 text-white moroccan-heading">
-            Moroccan Herb Treasures
+            Coopérative Raihan
           </h1>
           <p className="text-xl md:text-2xl mb-10 text-[#f0ece2] max-w-2xl">
             Discover authentic natural products harvested by generations of local farmers from the Atlas Mountains of Morocco
@@ -249,10 +249,10 @@ export default async function Home() {
           <div className="text-center">
             <div className="flex items-center justify-center mb-4">
               <GiHerbsBundle className="h-8 w-8 text-[#6b7f3e] mr-2" />
-              <h3 className="text-2xl font-bold">Moroccan Herbs</h3>
+              <h3 className="text-2xl font-bold">Savon</h3>
             </div>
             <p className="mb-4 text-[#d3c8ab]">Natural treasures from the Atlas Mountains</p>
-            <p className="text-[#8e846b]">© {new Date().getFullYear()} Moroccan Herbs. All rights reserved.</p>
+            <p className="text-[#8e846b]">© {new Date().getFullYear()} Raihan. All rights reserved.</p>
             <div className="mt-6 space-x-4">
               <Link 
                 href="/products"
