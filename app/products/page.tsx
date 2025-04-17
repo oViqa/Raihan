@@ -224,34 +224,7 @@ export default function ProductsPage() {
               </div>
             </form>
           </div>
-          
-          {/* Benefits Box */}
-          <div className="moroccan-card p-6 mt-4 bg-[#f8f5ec]">
-            <div className="flex items-center mb-4">
-              <GiMortar className="h-5 w-5 text-[#c17f24] mr-2" />
-              <h2 className="text-lg font-semibold text-[#4a5a2b]">Our Promise</h2>
-            </div>
-            <ul className="space-y-2 text-sm text-[#4a5a2b]">
-              <li className="flex items-start">
-                <span className="text-[#6b7f3e] mr-2">✓</span>
-                <span>100% natural ingredients</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-[#6b7f3e] mr-2">✓</span>
-                <span>Harvested by local farmers</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-[#6b7f3e] mr-2">✓</span>
-                <span>Traditional processing methods</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-[#6b7f3e] mr-2">✓</span>
-                <span>No chemicals or preservatives</span>
-              </li>
-            </ul>
-          </div>
         </div>
-        
         {/* Product Grid */}
         <div className="lg:col-span-3">
           {/* Results indicator */}

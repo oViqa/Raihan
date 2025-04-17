@@ -13,6 +13,8 @@
     "@supabase/ssr": "^0.6.1",
     "@supabase/supabase-js": "^2.49.4",
     "@types/uuid": "^10.0.0",
+    "@vercel/toolbar": "^0.1.32",
+    "flowbite": "^3.1.2",
     "next": "15.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

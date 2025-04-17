@@ -107,14 +107,17 @@ CREATE POLICY "Anyone can delete product images"
 ON storage.objects FOR DELETE
 USING (bucket_id = 'product-images');
 
--- Migration: Insert some default categories for testing
+/* -- Migration: Insert some default categories for testing
 INSERT INTO categories (name, description) VALUES
-('Electronics', 'Electronic devices and gadgets'),
-('Clothing', 'Apparel and fashion items'),
-('Home & Kitchen', 'Home decor and kitchen appliances'),
-('Books', 'Books and educational materials'),
-('Toys & Games', 'Toys, games, and entertainment items');
-
+('Huiles essentielles', 'زيوت أساسية'),
+('Huiles végétales', 'زيوت نباتية'),
+('Plantes sèches', 'نباتات جافة'),
+('Hydrolats', 'ماء الزهور'),
+('Sels de bain', 'أملاح الاستحمام'),
+('Shampoings', 'شامبوهات'),
+('Savon noir', 'الصابون الأسود'),
+('Argiles', 'الطين');
+*/
 -- Migration: Insert a default admin account
 INSERT INTO admins (email, password) VALUES
 ('admin@example.com', 'admin123'); 

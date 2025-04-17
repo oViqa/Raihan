@@ -57,7 +57,7 @@ export default async function Home() {
             <div className="flex items-center justify-center mb-3">
               <FaLeaf className="h-6 w-6 text-[#6b7f3e] mr-2" />
               <h2 className="text-4xl font-bold text-[#4a5a2b] moroccan-heading">
-                Premium Selections
+                Featured Products
               </h2>
             </div>
             <p className="text-[#8e846b] text-xl max-w-3xl mx-auto mt-3">
@@ -96,7 +96,7 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Parallax Moroccan Banner */}
+      {/* Parallax Moroccan Banner }
       <section className="relative h-80 md:h-96 bg-fixed bg-cover bg-center bg-[url('/images/moroccan-pattern-banner.jpg')] overflow-hidden">
         <div className="absolute inset-0 bg-[#00000066]"></div>
         <div className="container mx-auto px-4 relative z-10 h-full flex flex-col justify-center items-center text-center">
@@ -146,7 +146,7 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* How It Works with Moroccan Styling */}
+      {/* How It Works with Moroccan Styling }
       <section className="py-20 bg-[#f8f5ec]">
         <div className="container mx-auto px-4">
           <div className="mb-16 text-center">
@@ -159,8 +159,8 @@ export default async function Home() {
             <p className="text-[#8e846b] text-xl max-w-3xl mx-auto mt-3">
               A simple process to bring Morocco's finest herbs directly to you
             </p>
-          </div>
-          
+          </div> /*
+        
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div className="moroccan-card p-8 relative overflow-hidden group">
               <div className="absolute top-0 left-0 h-1 w-0 bg-[#6b7f3e] group-hover:w-full transition-all duration-700"></div>
@@ -186,7 +186,7 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Benefits Section */}
+      {/* Benefits Section}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="mb-16 text-center">
@@ -225,9 +225,9 @@ export default async function Home() {
           </div>
         </div>
       </section>
-
+      {/* Testimonials Section */}
       {/* Contact Section */}
-      <section className="py-16 bg-[#4a5a2b] text-white relative overflow-hidden">
+      {/* <section className="py-16 bg-[#4a5a2b] text-white relative overflow-hidden">
         <div className="absolute inset-0 moroccan-pattern opacity-10"></div>
         <div className="container mx-auto px-4 text-center relative z-10">
           <h2 className="text-3xl font-bold mb-6">Ready to Experience Moroccan Natural Treasures?</h2>
