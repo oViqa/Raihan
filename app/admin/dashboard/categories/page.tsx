@@ -17,7 +17,7 @@ export default function CategoriesManagement() {
   
   // Search and sorting
   const [searchQuery, setSearchQuery] = useState('');
-  const [sortField, setSortField] = useState<SortField>('name');
+  const [sortField] = useState<SortField>('name'); // Fixed: removed unused setSortField
   const [sortOrder, setSortOrder] = useState<SortOrder>('asc');
 
   useEffect(() => {
@@ -220,4 +220,4 @@ export default function CategoriesManagement() {
       )}
     </div>
   );
-} 
+}

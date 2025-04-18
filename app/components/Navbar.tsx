@@ -77,10 +77,10 @@ export default function Navbar() {
                 }`}
               >
                 <FaLeaf className="mr-1 h-4 w-4" />
-                All Products
+                Nos Produits
               </Link>
               
-              {!loading && categories.slice(0, 3).map((category) => (
+              {/* {!loading && categories.slice(0, 3).map((category) => (
                 <Link 
                   key={category.id}
                   href={`/products?category=${category.id}`}
@@ -92,7 +92,7 @@ export default function Navbar() {
                 >
                   {category.name}
                 </Link>
-              ))}
+              ))} */}
               
               <Link 
                 href="/about" 
