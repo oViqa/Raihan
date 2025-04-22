@@ -7,9 +7,9 @@ import { getCategories } from '@/app/lib/category';
 import { Product, Category } from '@/app/lib/database-schema';
 import ProductCard from '@/app/components/ProductCard';
 import FloatingWhatsAppButton from '@/app/components/FloatingWhatsAppButton';
-import { FaLeaf, FaSearch } from 'react-icons/fa';
-import { GiHerbsBundle, GiMortar } from 'react-icons/gi';
-import Link from 'next/link';
+import { FaSearch } from 'react-icons/fa';
+import { GiHerbsBundle } from 'react-icons/gi';
+import { FaLeaf } from 'react-icons/fa';
 
 export default function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -251,7 +251,7 @@ export default function ProductsPage() {
             <div className="moroccan-card p-10 text-center">
               <GiHerbsBundle className="h-16 w-16 text-[#d3c8ab] mx-auto mb-4" />
               <h3 className="text-lg font-medium text-[#4a5a2b] mb-2">No products found</h3>
-              <p className="text-[#8e846b] mb-4">Try adjusting your search or filter to find what you're looking for.</p>
+              <p className="text-[#8e846b] mb-4">Try adjusting your search or filter to find what you&apos;re looking for.</p>
               <button
                 onClick={() => {
                   setSelectedCategory('');
@@ -276,4 +276,4 @@ export default function ProductsPage() {
       <FloatingWhatsAppButton />
     </div>
   );
-} 
+}

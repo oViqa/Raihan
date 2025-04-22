@@ -36,11 +36,11 @@ export default function Navbar() {
     setIsMenuOpen(false);
   }, [pathname]);
 
-  const isActive = (path: string) => {
-    return pathname === path 
-      ? 'text-[#4a5a2b] font-bold' 
-      : 'text-[#6b7f3e] hover:text-[#4a5a2b]';
-  };
+  // const isActive = (path: string) => {
+  //  return pathname === path 
+  //    ? 'text-[#4a5a2b] font-bold' 
+  //    : 'text-[#6b7f3e] hover:text-[#4a5a2b]';
+  //};
 
   return (
     <nav className="bg-white sticky top-0 z-40 border-b-2 border-[#d3c8ab] shadow-sm">
@@ -94,7 +94,7 @@ export default function Navbar() {
                 </Link>
               ))} */}
               
-              <Link 
+              {/* <Link 
                 href="/about" 
                 className={`inline-flex items-center px-3 py-2 rounded-md text-sm font-medium border-b-2 ${
                   pathname === '/about' 
@@ -104,7 +104,7 @@ export default function Navbar() {
               >
                 <GiMountainRoad className="mr-1 h-4 w-4" />
                 Our Story
-              </Link>
+              </Link> */}
             </div>
           </div>
 
@@ -126,12 +126,12 @@ export default function Navbar() {
           
           {/* Admin link (desktop) */}
           <div className="hidden md:flex md:items-center">
-            <Link 
+            {/* <Link 
               href="/admin/login" 
               className="ml-4 px-3 py-2 rounded-md text-sm font-medium bg-[#f0ece2] text-[#4a5a2b] hover:bg-[#d3c8ab] transition-colors"
             >
               Admin Portal
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>
@@ -183,15 +183,15 @@ export default function Navbar() {
                 : 'border-transparent text-[#6b7f3e] hover:bg-[#f0ece2] hover:border-[#d3c8ab]'
             }`}
           >
-            Our Story
+            
           </Link>
           
-          <Link 
+          {/* <Link 
             href="/admin/login" 
             className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-[#4a5a2b] bg-[#f0ece2] hover:bg-[#d3c8ab]"
           >
             Admin Portal
-          </Link>
+          </Link> */}
         </div>
       </div>
     </nav>

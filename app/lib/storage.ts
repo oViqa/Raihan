@@ -14,13 +14,12 @@ export async function uploadProductImage(file: File): Promise<string> {
     const filePath = `products/${fileName}`;
     
     // Upload file to Supabase storage
-    const { data, error } = await supabase.storage
+    const { error } = await supabase.storage
       .from('product-images')
       .upload(filePath, file, {
         cacheControl: '3600',
         upsert: false
       });
-      
     if (error) {
       throw error;
     }

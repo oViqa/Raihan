@@ -25,7 +25,7 @@ export const createWhatsAppLink = (product: Product, quantity: number = 1): stri
   const totalPrice = formatPrice(Number(product.price) * quantity);
   
   // Create a more detailed purchase message
-  let message = [
+  const message = [
     `🛒 *PURCHASE REQUEST*`,
     ``,
     `*Product:* ${product.name}`,

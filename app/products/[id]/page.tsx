@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams} from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FiShoppingBag, FiArrowLeft, FiPlus, FiMinus } from 'react-icons/fi';
@@ -42,7 +42,6 @@ const getProductCategory = (product: Product): {icon: React.ReactNode, label: st
 
 export default function ProductDetailPage() {
   const params = useParams();
-  const router = useRouter();
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

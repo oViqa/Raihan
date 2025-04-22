@@ -1,12 +1,9 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import { getProducts } from '@/app/lib/product';
 import { getCategories } from '@/app/lib/category';
-import ProductCard from '@/app/components/ProductCard';
 import FloatingWhatsAppButton from '@/app/components/FloatingWhatsAppButton';
-import { formatPrice } from '@/app/lib/whatsapp';
-import { FaLeaf, FaShippingFast, FaHandsHelping } from 'react-icons/fa';
-import { GiHerbsBundle, GiMortar, GiMountainRoad } from 'react-icons/gi';
+import { FaLeaf} from 'react-icons/fa';
+import { GiHerbsBundle, GiMortar} from 'react-icons/gi';
 import FeaturedProductsSlider from '@/app/components/Productsslider';
 
 export default async function Home() {
@@ -61,7 +58,7 @@ export default async function Home() {
               </h2>
             </div>
             <p className="text-[#8e846b] text-xl max-w-3xl mx-auto mt-3">
-              Handpicked treasures from Morocco's finest harvests
+              Handpicked treasures from Morocco&#39;s finest harvests
             </p>
           </div>
           <FeaturedProductsSlider featuredProducts={featuredProducts} />
@@ -88,7 +85,7 @@ export default async function Home() {
               </h2>
             </div>
             <p className="text-[#8e846b] text-xl max-w-3xl mx-auto mt-3">
-              Curated categories of Morocco's finest natural offerings
+              Curated categories of Morocco&#39;s finest natural offerings
             </p>
           </div>
           

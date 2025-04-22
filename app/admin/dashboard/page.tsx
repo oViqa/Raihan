@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { getProducts } from '@/app/lib/product';
 import { getCategories } from '@/app/lib/category';
 import { getAdmins } from '@/app/lib/admin';
-import { Product, Category, Admin } from '@/app/lib/database-schema';
+// Removed the unused type imports
 
 export default function Dashboard() {
   const [loading, setLoading] = useState(true);
@@ -171,4 +171,4 @@ export default function Dashboard() {
       </div>
     </div>
   );
-} 
+}

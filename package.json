@@ -15,6 +15,7 @@
     "@types/uuid": "^10.0.0",
     "@vercel/toolbar": "^0.1.32",
     "flowbite": "^3.1.2",
+    "lucide-react": "^0.501.0",
     "next": "15.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
