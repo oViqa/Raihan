@@ -198,7 +198,7 @@ export default function ProductForm({ initialData, isEditing = false }: ProductF
               <div>
                 <label htmlFor="price" className="block text-[#4a5a2b] font-semibold mb-2 flex items-center">
                   <FaLeaf className="text-[#6b7f3e] mr-2 h-4 w-4" />
-                  Price *
+                  Price * <span className="ml-2 text-xs text-[#8e846b] font-normal">(not displayed on website)</span>
                 </label>
                 <div className="relative">
                   <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#8e846b]">$</span>
@@ -215,6 +215,7 @@ export default function ProductForm({ initialData, isEditing = false }: ProductF
                     className="w-full py-3 pl-8 pr-4 border border-[#d3c8ab] rounded-md focus:outline-none focus:ring-2 focus:ring-[#6b7f3e] focus:border-transparent transition-all"
                   />
                 </div>
+                <p className="mt-1 text-xs text-[#8e846b]">Used for internal tracking and WhatsApp orders.</p>
               </div>
               
               <div>

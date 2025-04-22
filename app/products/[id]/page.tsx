@@ -162,11 +162,7 @@ export default function ProductDetailPage() {
               <span className="text-sm font-medium text-[#8e846b]">{category.label}</span>
             </div>
             
-            <h1 className="text-3xl font-bold text-[#4a5a2b] mb-3">{product.name}</h1>
-            
-            <p className="text-2xl font-bold text-[#c17f24] mb-4">
-              {formatPrice(Number(product.price))}
-            </p>
+            <h1 className="text-3xl font-bold text-[#4a5a2b] mb-4">{product.name}</h1>
             
             <div className="bg-[#f0ece2] px-4 py-3 rounded-md mb-6 flex items-center justify-between">
               <span className="font-medium text-[#4a5a2b]">
@@ -218,12 +214,6 @@ export default function ProductDetailPage() {
                   >
                     <FiPlus className="h-5 w-5" />
                   </button>
-                  
-                  {quantity > 1 && (
-                    <div className="ml-6 text-[#c17f24] font-bold">
-                      Total: {formatPrice(Number(product.price) * quantity)}
-                    </div>
-                  )}
                 </div>
               </div>
             )}
@@ -238,7 +228,7 @@ export default function ProductDetailPage() {
                 <>
                   <WhatsAppButton 
                     href={whatsAppProps.href}
-                    message={whatsAppProps.message}
+                    message="Buy via WhatsApp"
                     className="w-full justify-center py-4 text-base font-bold mb-3"
                   />
                   <p className="text-center text-[#8e846b] text-sm">

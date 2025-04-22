@@ -149,7 +149,6 @@ export default function ProductsManagementPage() {
             <thead className="bg-[#f0ece2]">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-[#4a5a2b] uppercase tracking-wider">Product</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-[#4a5a2b] uppercase tracking-wider">Price</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-[#4a5a2b] uppercase tracking-wider">Stock</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-[#4a5a2b] uppercase tracking-wider">Actions</th>
               </tr>
@@ -157,7 +156,7 @@ export default function ProductsManagementPage() {
             <tbody className="bg-white divide-y divide-[#d3c8ab]">
               {filteredProducts.length === 0 ? (
                 <tr>
-                  <td colSpan={4} className="px-6 py-10 text-center text-[#8e846b]">
+                  <td colSpan={3} className="px-6 py-10 text-center text-[#8e846b]">
                     {products.length === 0 ? (
                       <>
                         <GiHerbsBundle className="h-12 w-12 text-[#d3c8ab] mx-auto mb-3" />
@@ -201,9 +200,6 @@ export default function ProductsManagementPage() {
                           </div>
                         </div>
                       </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-[#c17f24] font-semibold">
-                      {formatPrice(Number(product.price))}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${

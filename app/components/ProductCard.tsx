@@ -7,7 +7,7 @@ import { FiShoppingBag, FiSend } from 'react-icons/fi';
 import { FaLeaf, FaHandHoldingMedical } from 'react-icons/fa6';
 import { GiHoneycomb } from 'react-icons/gi';
 import { Product } from '@/app/lib/database-schema';
-import { formatPrice, createWhatsAppLink } from '@/app/lib/whatsapp';
+import { createWhatsAppLink } from '@/app/lib/whatsapp';
 
 interface ProductCardProps {
   product: Product;
@@ -97,14 +97,10 @@ export default function ProductCard({ product }: ProductCardProps) {
       
       <div className="p-4">
         <Link href={productUrl} className="block">
-          <h3 className="text-lg font-medium text-[#4a5a2b] mb-1 hover:text-[#6b7f3e] transition-colors">
+          <h3 className="text-lg font-medium text-[#4a5a2b] mb-3 hover:text-[#6b7f3e] transition-colors">
             {product.name}
           </h3>
         </Link>
-        
-        <p className="text-xl font-bold text-[#c17f24] mb-2">
-          {formatPrice(Number(product.price))}
-        </p>
         
         <div className="flex flex-wrap gap-2 justify-between items-center">
           <Link
@@ -114,14 +110,14 @@ export default function ProductCard({ product }: ProductCardProps) {
             View Details
           </Link>
           
-        <button
+          <button
             onClick={handleWhatsAppInquiry}
             className="flex items-center text-sm bg-[#6b7f3e] hover:bg-[#4a5a2b] text-white px-3 py-2 rounded-md transition-all shadow-sm hover:shadow"
             disabled={product.stock_quantity === 0}
-        >
+          >
             <FiSend className="mr-1 h-4 w-4" />
             <span>Buy Now</span>
-        </button>
+          </button>
           
           <div className="w-full mt-2 text-xs text-[#8e846b] flex items-center">
             <FaLeaf className="mr-1 h-3 w-3 text-[#6b7f3e]" />
