@@ -37,7 +37,7 @@ export default function WhatsAppButton({
   };
 
   return (
-    <a 
+    <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"

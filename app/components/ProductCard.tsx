@@ -49,12 +49,12 @@ export default function ProductCard({ product }: ProductCardProps) {
   
   return (
     <div 
-      className="group bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border border-[#d3c8ab]/30 hover:border-[#6b7f3e]/50"
+      className="group bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border border-[#d3c8ab]/30 hover:border-[#6b7f3e]/50 h-full flex flex-col"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <Link href={productUrl} className="block relative">
-        <div className="aspect-square relative overflow-hidden bg-[#f8f5ec]">
+      <Link href={productUrl} className="block relative overflow-hidden">
+        <div className="aspect-square relative bg-[#f8f5ec]">
           {product.image_url ? (
             <Image
               src={product.image_url}
@@ -88,7 +88,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               View Details <FiExternalLink className="ml-1.5 h-3.5 w-3.5" />
             </span>
           </div>
-      </div>
+        </div>
         
         {product.stock_quantity <= 5 && product.stock_quantity > 0 && (
           <div className="absolute top-3 right-3">
@@ -113,20 +113,20 @@ export default function ProductCard({ product }: ProductCardProps) {
         </span>
       </Link>
       
-      <div className="p-5">
-        <Link href={productUrl} className="block">
+      <div className="p-5 flex flex-col flex-1">
+        <Link href={productUrl} className="block mb-auto">
           <h3 className="text-lg font-semibold text-[#4a5a2b] mb-1.5 line-clamp-2 hover:text-[#6b7f3e] transition-colors">
             {product.name}
           </h3>
+          
+          {product.description && (
+            <p className="text-[#8e846b] text-sm mb-4 line-clamp-2">
+              {product.description}
+            </p>
+          )}
         </Link>
         
-        {product.description && (
-          <p className="text-[#8e846b] text-sm mb-4 line-clamp-2">
-            {product.description}
-          </p>
-        )}
-        
-        <div className="flex flex-wrap gap-2 justify-between items-center">
+        <div className="mt-auto space-y-2">
           {product.stock_quantity > 0 ? (
             <button
               onClick={handleWhatsAppInquiry}
@@ -146,7 +146,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             </button>
           )}
           
-          <div className="w-full mt-3 text-xs text-[#8e846b] flex items-center justify-center bg-[#f8f5ec] py-2 px-3 rounded-lg">
+          <div className="w-full text-xs text-[#8e846b] flex items-center justify-center bg-[#f8f5ec] py-2 px-3 rounded-lg">
             <FaLeaf className="mr-1.5 h-3 w-3 text-[#6b7f3e]" />
             <span>
               {product.stock_quantity > 0 
