@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { adminLogin } from '@/app/lib/admin';
 import Link from 'next/link';
+import RaihanLogo from '@/app/components/admin/RaihanLogo';
+import { FaLeaf, FaLock, FaEnvelope } from 'react-icons/fa';
 
 export default function AdminLogin() {
   const [email, setEmail] = useState('');
@@ -42,71 +44,98 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Admin Login
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            <Link href="/" className="font-medium text-indigo-600 hover:text-indigo-500">
-              Return to homepage
-            </Link>
-          </p>
-        </div>
-        
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="rounded-md shadow-sm -space-y-px">
-            <div>
-              <label htmlFor="email-address" className="sr-only">
-                Email address
-              </label>
-              <input
-                id="email-address"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="password" className="sr-only">
-                Password
-              </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
+    <div className="min-h-screen flex items-center justify-center bg-[#f8f5ec] py-12 px-4 sm:px-6 lg:px-8 moroccan-pattern-light">
+      <div className="max-w-md w-full">
+        <div className="moroccan-card p-8 shadow-lg">
+          <div className="flex justify-center mb-6">
+            <RaihanLogo size="lg" />
           </div>
-
+          
+          <h2 className="text-center text-2xl font-bold text-[#4a5a2b] mb-6">
+            Admin Portal
+          </h2>
+          
           {error && (
-            <div className="rounded-md bg-red-50 p-4">
-              <div className="text-sm text-red-700">{error}</div>
+            <div className="mb-6 bg-[#f8d7cf] p-4 rounded-md border-l-4 border-[#b54e32]">
+              <div className="text-sm text-[#b54e32] font-medium">{error}</div>
             </div>
           )}
+          
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            <div className="space-y-4">
+              <div>
+                <label htmlFor="email-address" className="block text-[#4a5a2b] font-semibold mb-2 flex items-center">
+                  <FaEnvelope className="text-[#6b7f3e] mr-2 h-4 w-4" />
+                  Email Address
+                </label>
+                <div className="relative">
+                  <input
+                    id="email-address"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    required
+                    className="w-full py-3 px-4 border border-[#d3c8ab] rounded-md focus:outline-none focus:ring-2 focus:ring-[#6b7f3e] focus:border-transparent transition-all"
+                    placeholder="admin@example.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+              </div>
+              
+              <div>
+                <label htmlFor="password" className="block text-[#4a5a2b] font-semibold mb-2 flex items-center">
+                  <FaLock className="text-[#6b7f3e] mr-2 h-4 w-4" />
+                  Password
+                </label>
+                <div className="relative">
+                  <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    autoComplete="current-password"
+                    required
+                    className="w-full py-3 px-4 border border-[#d3c8ab] rounded-md focus:outline-none focus:ring-2 focus:ring-[#6b7f3e] focus:border-transparent transition-all"
+                    placeholder="••••••••"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
+              </div>
+            </div>
 
-          <div>
-            <button
-              type="submit"
-              disabled={loading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+            <div className="pt-4">
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-[#6b7f3e] hover:bg-[#4a5a2b] text-white font-medium py-3 px-4 rounded-md transition-colors shadow-md hover:shadow-lg transform hover:-translate-y-1 disabled:opacity-50 disabled:transform-none disabled:shadow-none flex items-center justify-center"
+              >
+                {loading ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-white mr-2"></div>
+                    Signing in...
+                  </>
+                ) : (
+                  'Sign in to Admin'
+                )}
+              </button>
+            </div>
+          </form>
+          
+          <div className="mt-6 pt-6 border-t border-[#d3c8ab] text-center">
+            <Link 
+              href="/" 
+              className="text-[#6b7f3e] hover:text-[#4a5a2b] text-sm flex items-center justify-center"
             >
-              {loading ? 'Logging in...' : 'Sign in'}
-            </button>
+              <FaLeaf className="mr-2 h-3 w-3" />
+              Return to Homepage
+            </Link>
           </div>
-        </form>
+        </div>
+        
+        <div className="mt-4 text-center text-xs text-[#8e846b]">
+          © {new Date().getFullYear()} Raihan - Authentic Moroccan Herbs
+        </div>
       </div>
     </div>
   );

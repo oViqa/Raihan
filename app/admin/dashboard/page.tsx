@@ -5,7 +5,8 @@ import Link from 'next/link';
 import { getProducts } from '@/app/lib/product';
 import { getCategories } from '@/app/lib/category';
 import { getAdmins } from '@/app/lib/admin';
-// Removed the unused type imports
+import { GiHerbsBundle, GiPlantRoots, GiMortar } from 'react-icons/gi';
+import { FaLeaf, FaBoxOpen, FaTags, FaUserShield, FaPlus, FaStore, FaShippingFast } from 'react-icons/fa';
 
 export default function Dashboard() {
   const [loading, setLoading] = useState(true);
@@ -42,94 +43,100 @@ export default function Dashboard() {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-[50vh]">
-        <p className="text-xl font-semibold">Loading dashboard data...</p>
+        <div className="flex flex-col items-center">
+          <GiHerbsBundle className="text-[#6b7f3e] h-12 w-12 animate-pulse mb-4" />
+          <p className="text-[#4a5a2b] font-semibold">Loading dashboard data...</p>
+        </div>
       </div>
     );
   }
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-6">Dashboard Overview</h1>
+      <div className="flex items-center mb-8">
+        <GiPlantRoots className="h-8 w-8 text-[#6b7f3e] mr-3" />
+        <h1 className="text-3xl font-bold text-[#4a5a2b] moroccan-heading">Dashboard Overview</h1>
+      </div>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         {/* Products Card */}
-        <div className="bg-white overflow-hidden shadow rounded-lg">
-          <div className="px-4 py-5 sm:p-6">
+        <div className="moroccan-card transition-all hover:shadow-lg transform hover:-translate-y-1">
+          <div className="px-6 py-5">
             <div className="flex items-center">
-              <div className="flex-shrink-0 bg-indigo-500 rounded-md p-3">
-                <svg className="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                </svg>
+              <div className="flex-shrink-0 bg-[#6b7f3e] rounded-full p-3">
+                <FaBoxOpen className="h-6 w-6 text-white" />
               </div>
               <div className="ml-5 w-0 flex-1">
                 <dl>
-                  <dt className="text-sm font-medium text-gray-500 truncate">Total Products</dt>
+                  <dt className="text-sm font-medium text-[#8e846b] truncate">Total Products</dt>
                   <dd>
-                    <div className="text-lg font-medium text-gray-900">{stats.productCount}</div>
+                    <div className="text-2xl font-bold text-[#4a5a2b]">{stats.productCount}</div>
                   </dd>
                 </dl>
               </div>
             </div>
           </div>
-          <div className="bg-gray-50 px-4 py-4 sm:px-6">
+          <div className="bg-[#f8f5ec] px-6 py-4 border-t border-[#d3c8ab]">
             <div className="text-sm">
-              <Link href="/admin/dashboard/products" className="font-medium text-indigo-600 hover:text-indigo-500">
-                View all products
+              <Link href="/admin/dashboard/products" className="font-medium text-[#6b7f3e] hover:text-[#4a5a2b] flex items-center">
+                <span>View all products</span>
+                <svg className="ml-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
               </Link>
             </div>
           </div>
         </div>
 
         {/* Categories Card */}
-        <div className="bg-white overflow-hidden shadow rounded-lg">
-          <div className="px-4 py-5 sm:p-6">
+        <div className="moroccan-card transition-all hover:shadow-lg transform hover:-translate-y-1">
+          <div className="px-6 py-5">
             <div className="flex items-center">
-              <div className="flex-shrink-0 bg-green-500 rounded-md p-3">
-                <svg className="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                </svg>
+              <div className="flex-shrink-0 bg-[#c17f24] rounded-full p-3">
+                <FaTags className="h-6 w-6 text-white" />
               </div>
               <div className="ml-5 w-0 flex-1">
                 <dl>
-                  <dt className="text-sm font-medium text-gray-500 truncate">Total Categories</dt>
+                  <dt className="text-sm font-medium text-[#8e846b] truncate">Total Categories</dt>
                   <dd>
-                    <div className="text-lg font-medium text-gray-900">{stats.categoryCount}</div>
+                    <div className="text-2xl font-bold text-[#4a5a2b]">{stats.categoryCount}</div>
                   </dd>
                 </dl>
               </div>
             </div>
           </div>
-          <div className="bg-gray-50 px-4 py-4 sm:px-6">
+          <div className="bg-[#f8f5ec] px-6 py-4 border-t border-[#d3c8ab]">
             <div className="text-sm">
-              <Link href="/admin/dashboard/categories" className="font-medium text-indigo-600 hover:text-indigo-500">
-                View all categories
+              <Link href="/admin/dashboard/categories" className="font-medium text-[#6b7f3e] hover:text-[#4a5a2b] flex items-center">
+                <span>View all categories</span>
+                <svg className="ml-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
               </Link>
             </div>
           </div>
         </div>
 
         {/* Admins Card */}
-        <div className="bg-white overflow-hidden shadow rounded-lg">
-          <div className="px-4 py-5 sm:p-6">
+        <div className="moroccan-card transition-all hover:shadow-lg transform hover:-translate-y-1">
+          <div className="px-6 py-5">
             <div className="flex items-center">
-              <div className="flex-shrink-0 bg-purple-500 rounded-md p-3">
-                <svg className="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
+              <div className="flex-shrink-0 bg-[#b54e32] rounded-full p-3">
+                <FaUserShield className="h-6 w-6 text-white" />
               </div>
               <div className="ml-5 w-0 flex-1">
                 <dl>
-                  <dt className="text-sm font-medium text-gray-500 truncate">Admin Accounts</dt>
+                  <dt className="text-sm font-medium text-[#8e846b] truncate">Admin Accounts</dt>
                   <dd>
-                    <div className="text-lg font-medium text-gray-900">{stats.adminCount}</div>
+                    <div className="text-2xl font-bold text-[#4a5a2b]">{stats.adminCount}</div>
                   </dd>
                 </dl>
               </div>
             </div>
           </div>
-          <div className="bg-gray-50 px-4 py-4 sm:px-6">
+          <div className="bg-[#f8f5ec] px-6 py-4 border-t border-[#d3c8ab]">
             <div className="text-sm">
-              <span className="font-medium text-gray-500">
+              <span className="font-medium text-[#8e846b] flex items-center">
                 Manage admin accounts
               </span>
             </div>
@@ -137,35 +144,132 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="bg-white shadow overflow-hidden sm:rounded-lg">
-        <div className="px-4 py-5 sm:px-6">
-          <h3 className="text-lg leading-6 font-medium text-gray-900">
-            Quick Actions
-          </h3>
-          <p className="mt-1 max-w-2xl text-sm text-gray-500">
+      {/* Quick Actions */}
+      <div className="moroccan-card mb-8">
+        <div className="px-6 py-5">
+          <div className="flex items-center mb-2">
+            <GiMortar className="h-5 w-5 text-[#c17f24] mr-2" />
+            <h3 className="text-lg font-bold text-[#4a5a2b]">
+              Quick Actions
+            </h3>
+          </div>
+          <p className="text-sm text-[#8e846b]">
             Common tasks you might want to perform
           </p>
         </div>
-        <div className="border-t border-gray-200">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
+        <div className="border-t border-[#d3c8ab] bg-[#f8f5ec]">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-6">
             <Link 
               href="/admin/dashboard/products/new" 
-              className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="flex items-center justify-center px-4 py-3 border border-[#d3c8ab] rounded-md shadow-sm text-sm font-medium text-white bg-[#6b7f3e] hover:bg-[#4a5a2b] transition-colors"
             >
+              <FaPlus className="mr-2 h-4 w-4" />
               Add New Product
             </Link>
             <Link 
               href="/admin/dashboard/categories/new" 
-              className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+              className="flex items-center justify-center px-4 py-3 border border-[#d3c8ab] rounded-md shadow-sm text-sm font-medium text-white bg-[#c17f24] hover:bg-[#95611c] transition-colors"
             >
+              <FaPlus className="mr-2 h-4 w-4" />
               Add New Category
             </Link>
             <Link 
               href="/" 
-              className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+              className="flex items-center justify-center px-4 py-3 border border-[#d3c8ab] rounded-md shadow-sm text-sm font-medium text-[#4a5a2b] bg-white hover:bg-[#f0ece2] transition-colors"
             >
+              <FaStore className="mr-2 h-4 w-4" />
               View Website
             </Link>
+          </div>
+        </div>
+      </div>
+      
+      {/* Recent Activity Section (Placeholder) */}
+      <div className="moroccan-card">
+        <div className="px-6 py-5">
+          <div className="flex items-center mb-2">
+            <FaLeaf className="h-5 w-5 text-[#6b7f3e] mr-2" />
+            <h3 className="text-lg font-bold text-[#4a5a2b]">
+              Store Overview
+            </h3>
+          </div>
+          <p className="text-sm text-[#8e846b]">
+            At a glance information about your Moroccan herbs store
+          </p>
+        </div>
+        <div className="border-t border-[#d3c8ab]">
+          <div className="p-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Left column */}
+              <div>
+                <h4 className="text-md font-semibold text-[#4a5a2b] mb-4 flex items-center">
+                  <FaShippingFast className="h-4 w-4 mr-2 text-[#6b7f3e]" />
+                  Inventory Management
+                </h4>
+                <div className="space-y-4">
+                  <div className="bg-[#f8f5ec] p-4 rounded-md border border-[#d3c8ab]">
+                    <h5 className="font-medium text-[#4a5a2b] mb-2">Low Stock Items</h5>
+                    <p className="text-sm text-[#8e846b]">
+                      Check your inventory for products that are running low on stock. 
+                    </p>
+                    <Link 
+                      href="/admin/dashboard/products" 
+                      className="mt-2 inline-flex text-[#6b7f3e] hover:text-[#4a5a2b] text-sm font-medium"
+                    >
+                      Manage inventory →
+                    </Link>
+                  </div>
+                  
+                  <div className="bg-[#f8f5ec] p-4 rounded-md border border-[#d3c8ab]">
+                    <h5 className="font-medium text-[#4a5a2b] mb-2">Product Images</h5>
+                    <p className="text-sm text-[#8e846b]">
+                      Ensure all products have high-quality images to showcase your authentic herbs.
+                    </p>
+                    <Link 
+                      href="/admin/dashboard/products" 
+                      className="mt-2 inline-flex text-[#6b7f3e] hover:text-[#4a5a2b] text-sm font-medium"
+                    >
+                      Review products →
+                    </Link>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Right column */}
+              <div>
+                <h4 className="text-md font-semibold text-[#4a5a2b] mb-4 flex items-center">
+                  <GiHerbsBundle className="h-4 w-4 mr-2 text-[#c17f24]" />
+                  Store Management
+                </h4>
+                <div className="space-y-4">
+                  <div className="bg-[#f8f5ec] p-4 rounded-md border border-[#d3c8ab]">
+                    <h5 className="font-medium text-[#4a5a2b] mb-2">Update Product Descriptions</h5>
+                    <p className="text-sm text-[#8e846b]">
+                      Enhance product descriptions with information about traditional uses and benefits.
+                    </p>
+                    <Link 
+                      href="/admin/dashboard/products" 
+                      className="mt-2 inline-flex text-[#6b7f3e] hover:text-[#4a5a2b] text-sm font-medium"
+                    >
+                      Edit products →
+                    </Link>
+                  </div>
+                  
+                  <div className="bg-[#f8f5ec] p-4 rounded-md border border-[#d3c8ab]">
+                    <h5 className="font-medium text-[#4a5a2b] mb-2">Organize Categories</h5>
+                    <p className="text-sm text-[#8e846b]">
+                      Create and manage categories to better organize your Moroccan herb products.
+                    </p>
+                    <Link 
+                      href="/admin/dashboard/categories" 
+                      className="mt-2 inline-flex text-[#6b7f3e] hover:text-[#4a5a2b] text-sm font-medium"
+                    >
+                      Manage categories →
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
