@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { isAdminLoggedIn, getAdminData, logoutAdmin } from '@/app/lib/auth-utils';
 import Link from 'next/link';
 import { GiHerbsBundle, GiMortar, GiPlantRoots } from 'react-icons/gi';
-import { FaLeaf, FaStore, FaSignOutAlt, FaList, FaBoxOpen, FaTags } from 'react-icons/fa';
+import { FaLeaf, FaStore, FaSignOutAlt, FaList, FaBoxOpen, FaTags, FaUsersCog } from 'react-icons/fa';
 import RaihanLogo from '@/app/components/admin/RaihanLogo';
 
 export default function AdminDashboardLayout({
@@ -144,6 +144,19 @@ export default function AdminDashboardLayout({
                   >
                     <FaTags className={`${isSidebarOpen ? 'mr-3' : 'mx-auto'} h-5 w-5`} />
                     {isSidebarOpen && <span>Categories</span>}
+                  </Link>
+                </li>
+                <li>
+                  <Link 
+                    href="/admin/dashboard/admins" 
+                    className={`flex items-center px-3 py-3 rounded-md transition-colors ${
+                      path.includes('/admin/dashboard/admins') 
+                        ? 'bg-[#6b7f3e] text-white' 
+                        : 'text-gray-700 hover:bg-gray-100'
+                    }`}
+                  >
+                    <FaUsersCog className={`${isSidebarOpen ? 'mr-3' : 'mx-auto'} h-5 w-5`} />
+                    {isSidebarOpen && <span>Admins</span>}
                   </Link>
                 </li>
               </ul>
