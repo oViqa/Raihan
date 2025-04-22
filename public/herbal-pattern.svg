@@ -1,0 +1,43 @@
+ <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="herbal-pattern" x="0" y="0" width="120" height="120" patternUnits="userSpaceOnUse">
+      <!-- Background -->
+      <rect width="120" height="120" fill="#f8f8f8" opacity="0.8"/>
+      
+      <!-- Herbal elements -->
+      <g opacity="0.07">
+        <!-- Leaf 1 -->
+        <path d="M20,30 C25,20 40,25 30,40 C25,45 15,42 20,30 Z" fill="#6b7f3e"/>
+        
+        <!-- Leaf 2 -->
+        <path d="M90,80 C95,70 110,75 100,90 C95,95 85,92 90,80 Z" fill="#6b7f3e"/>
+        
+        <!-- Leaf 3 -->
+        <path d="M40,100 C50,95 55,110 40,100 C35,95 32,85 40,100 Z" fill="#6b7f3e"/>
+        
+        <!-- Sprig 1 -->
+        <path d="M70,20 L75,10 M70,20 L65,10 M70,20 L70,30" stroke="#6b7f3e" stroke-width="1" fill="none"/>
+        <circle cx="75" cy="10" r="2" fill="#6b7f3e"/>
+        <circle cx="65" cy="10" r="2" fill="#6b7f3e"/>
+        
+        <!-- Herb Branch -->
+        <path d="M110,40 L100,50 M100,50 L110,60 M100,50 L90,50" stroke="#6b7f3e" stroke-width="1" fill="none"/>
+        <circle cx="110" cy="40" r="2" fill="#6b7f3e"/>
+        <circle cx="110" cy="60" r="2" fill="#6b7f3e"/>
+        <circle cx="90" cy="50" r="2" fill="#6b7f3e"/>
+      </g>
+      
+      <!-- Subtle dots -->
+      <circle cx="30" cy="60" r="1" fill="#4a5a2b" opacity="0.05"/>
+      <circle cx="60" cy="30" r="1" fill="#4a5a2b" opacity="0.05"/>
+      <circle cx="60" cy="90" r="1" fill="#4a5a2b" opacity="0.05"/>
+      <circle cx="90" cy="60" r="1" fill="#4a5a2b" opacity="0.05"/>
+      
+      <!-- Modern minimalist lines -->
+      <line x1="0" y1="0" x2="120" y2="120" stroke="#d3c8ab" stroke-width="0.5" opacity="0.1"/>
+      <line x1="120" y1="0" x2="0" y2="120" stroke="#d3c8ab" stroke-width="0.5" opacity="0.1"/>
+    </pattern>
+  </defs>
+  
+  <rect width="120" height="120" fill="url(#herbal-pattern)"/>
+</svg> 

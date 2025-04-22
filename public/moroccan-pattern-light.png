@@ -1,0 +1,26 @@
+<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="moroccan-pattern" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
+      <!-- Background -->
+      <rect width="60" height="60" fill="#f8f5ec"/>
+      
+      <!-- Pattern elements -->
+      <path d="M30,16 L44,30 L30,44 L16,30 Z" fill="#e9e2d5" stroke="#d3c8ab" stroke-width="1"/>
+      <circle cx="30" cy="30" r="4" fill="#f0ece2" stroke="#d3c8ab" stroke-width="1"/>
+      
+      <!-- Corner decorations -->
+      <circle cx="15" cy="15" r="2" fill="#f0ece2" stroke="#d3c8ab" stroke-width="0.5"/>
+      <circle cx="45" cy="15" r="2" fill="#f0ece2" stroke="#d3c8ab" stroke-width="0.5"/>
+      <circle cx="15" cy="45" r="2" fill="#f0ece2" stroke="#d3c8ab" stroke-width="0.5"/>
+      <circle cx="45" cy="45" r="2" fill="#f0ece2" stroke="#d3c8ab" stroke-width="0.5"/>
+      
+      <!-- Subtle accents -->
+      <circle cx="30" cy="15" r="1" fill="#6b7f3e" opacity="0.2"/>
+      <circle cx="30" cy="45" r="1" fill="#6b7f3e" opacity="0.2"/>
+      <circle cx="15" cy="30" r="1" fill="#6b7f3e" opacity="0.2"/>
+      <circle cx="45" cy="30" r="1" fill="#6b7f3e" opacity="0.2"/>
+    </pattern>
+  </defs>
+  
+  <rect width="60" height="60" fill="url(#moroccan-pattern)"/>
+</svg> 

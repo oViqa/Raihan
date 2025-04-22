@@ -51,12 +51,17 @@ module.exports = {
           '0%, 100%': { opacity: '1' },
           '50%': { opacity: '0.5' },
         },
+        'fade-in': {
+          '0%': { opacity: '0', transform: 'translateY(10px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
       },
       animation: {
         fadeIn: 'fadeIn 0.3s ease-out',
         scaleIn: 'scaleIn 0.3s ease-out',
         slideInRight: 'slideInRight 0.4s ease-out',
         pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'fade-in': 'fade-in 0.4s ease-out',
       },
       fontFamily: {
         morocco: ['var(--font-morocco)', 'serif'],

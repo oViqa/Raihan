@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { FiShoppingBag, FiSend } from 'react-icons/fi';
+import { FiShoppingBag, FiSend, FiExternalLink } from 'react-icons/fi';
 import { FaLeaf, FaHandHoldingMedical } from 'react-icons/fa6';
 import { GiHoneycomb } from 'react-icons/gi';
 import { Product } from '@/app/lib/database-schema';
@@ -38,6 +38,7 @@ const getProductIcon = (product: Product) => {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const [isLoading, setIsLoading] = useState(true);
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleWhatsAppInquiry = () => {
     window.open(createWhatsAppLink(product), '_blank');
@@ -47,22 +48,27 @@ export default function ProductCard({ product }: ProductCardProps) {
   const productIcon = getProductIcon(product);
   
   return (
-    <div className="moroccan-card group transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+    <div 
+      className="group bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border border-[#d3c8ab]/30 hover:border-[#6b7f3e]/50"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <Link href={productUrl} className="block relative">
         <div className="aspect-square relative overflow-hidden bg-[#f8f5ec]">
           {product.image_url ? (
-        <Image
+            <Image
               src={product.image_url}
-          alt={product.name}
-          fill
-              className={`object-cover transform group-hover:scale-105 transition-transform duration-500 ${
-                isLoading ? 'opacity-0' : 'opacity-100'
-              }`}
+              alt={product.name}
+              fill
+              className={`object-cover transition-all duration-500 ${
+                isLoading ? 'opacity-0 scale-105' : 'opacity-100 scale-100'
+              } ${isHovered ? 'scale-110' : 'scale-100'}`}
               onLoad={() => setIsLoading(false)}
               sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+              priority={false}
             />
           ) : (
-            <div className="absolute inset-0 flex items-center justify-center bg-[#f0ece2]">
+            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#f0ece2] to-white">
               {productIcon}
             </div>
           )}
@@ -74,57 +80,78 @@ export default function ProductCard({ product }: ProductCardProps) {
           )}
           
           {/* Decorative pattern overlay */}
-          <div className="absolute inset-0 bg-[url('/moroccan-pattern.png')] opacity-5 pointer-events-none"></div>
+          <div className="absolute inset-0 bg-[url('/moroccan-pattern.png')] opacity-5 pointer-events-none mix-blend-multiply"></div>
+          
+          {/* View details overlay */}
+          <div className={`absolute inset-0 bg-black/40 flex items-center justify-center transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
+            <span className="bg-white/90 text-[#4a5a2b] px-3 py-2 rounded-full font-medium text-sm flex items-center backdrop-blur-sm">
+              View Details <FiExternalLink className="ml-1.5 h-3.5 w-3.5" />
+            </span>
+          </div>
       </div>
         
         {product.stock_quantity <= 5 && product.stock_quantity > 0 && (
-          <span className="absolute top-2 right-2 bg-[#c17f24] text-white text-xs font-bold px-2 py-1 rounded-sm">
-            Limited Supply
-          </span>
+          <div className="absolute top-3 right-3">
+            <span className="bg-[#c17f24] text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">
+              Limited Stock
+            </span>
+          </div>
         )}
         
         {product.stock_quantity === 0 && (
-          <span className="absolute top-2 right-2 bg-[#b54e32] text-white text-xs font-bold px-2 py-1 rounded-sm">
-            Out of Stock
-          </span>
+          <div className="absolute top-3 right-3">
+            <span className="bg-[#b54e32] text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">
+              Out of Stock
+            </span>
+          </div>
         )}
         
         {/* Origin badge */}
-        <span className="absolute bottom-2 left-2 bg-white/80 text-[#4a5a2b] text-xs font-bold px-2 py-1 rounded-sm backdrop-blur-sm">
+        <span className="absolute bottom-3 left-3 bg-white/90 text-[#4a5a2b] text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-sm shadow-sm flex items-center">
+          <FaLeaf className="w-3 h-3 mr-1 text-[#6b7f3e]" />
           Moroccan Origin
         </span>
       </Link>
       
-      <div className="p-4">
+      <div className="p-5">
         <Link href={productUrl} className="block">
-          <h3 className="text-lg font-medium text-[#4a5a2b] mb-3 hover:text-[#6b7f3e] transition-colors">
+          <h3 className="text-lg font-semibold text-[#4a5a2b] mb-1.5 line-clamp-2 hover:text-[#6b7f3e] transition-colors">
             {product.name}
           </h3>
         </Link>
         
+        {product.description && (
+          <p className="text-[#8e846b] text-sm mb-4 line-clamp-2">
+            {product.description}
+          </p>
+        )}
+        
         <div className="flex flex-wrap gap-2 justify-between items-center">
-          <Link
-            href={productUrl}
-            className="text-sm font-medium text-[#6b7f3e] hover:text-[#4a5a2b] transition-colors"
-          >
-            View Details
-          </Link>
+          {product.stock_quantity > 0 ? (
+            <button
+              onClick={handleWhatsAppInquiry}
+              className="w-full flex items-center justify-center text-sm bg-[#6b7f3e] hover:bg-[#4a5a2b] text-white px-4 py-3 rounded-lg transition-all shadow-sm hover:shadow focus:ring-2 focus:ring-[#6b7f3e]/50 focus:outline-none"
+              aria-label={`Buy ${product.name} on WhatsApp`}
+            >
+              <FiSend className="mr-2 h-4 w-4" />
+              <span>Buy on WhatsApp</span>
+            </button>
+          ) : (
+            <button
+              disabled
+              className="w-full flex items-center justify-center text-sm bg-gray-200 text-gray-500 px-4 py-3 rounded-lg cursor-not-allowed"
+            >
+              <FiSend className="mr-2 h-4 w-4" />
+              <span>Currently Unavailable</span>
+            </button>
+          )}
           
-          <button
-            onClick={handleWhatsAppInquiry}
-            className="flex items-center text-sm bg-[#6b7f3e] hover:bg-[#4a5a2b] text-white px-3 py-2 rounded-md transition-all shadow-sm hover:shadow"
-            disabled={product.stock_quantity === 0}
-          >
-            <FiSend className="mr-1 h-4 w-4" />
-            <span>Buy Now</span>
-          </button>
-          
-          <div className="w-full mt-2 text-xs text-[#8e846b] flex items-center">
-            <FaLeaf className="mr-1 h-3 w-3 text-[#6b7f3e]" />
+          <div className="w-full mt-3 text-xs text-[#8e846b] flex items-center justify-center bg-[#f8f5ec] py-2 px-3 rounded-lg">
+            <FaLeaf className="mr-1.5 h-3 w-3 text-[#6b7f3e]" />
             <span>
               {product.stock_quantity > 0 
-                ? `${product.stock_quantity} units available` 
-                : 'Currently unavailable'}
+                ? `${product.stock_quantity} ${product.stock_quantity === 1 ? 'unit' : 'units'} available` 
+                : 'Out of stock'}
             </span>
           </div>
         </div>
