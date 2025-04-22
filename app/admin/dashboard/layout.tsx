@@ -57,11 +57,10 @@ export default function AdminDashboardLayout({
   }
 
   return (
-    <div className="min-h-screen bg-[#f8f5ec] flex flex-col">
+    <div className="min-h-screen bg-white flex flex-col">
       {/* Admin Dashboard Header */}
-      <nav className="bg-[#4a5a2b] border-b border-[#d3c8ab] relative shadow-md">
-        <div className="absolute inset-0 opacity-5 bg-[url('/images/moroccan-pattern.png')]"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <nav className="bg-[#4a5a2b] border-b border-gray-200 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
               <button
@@ -80,9 +79,8 @@ export default function AdminDashboardLayout({
               </Link>
             </div>
             <div className="flex items-center">
-              <div className="flex items-center bg-[#3a4821] rounded-full py-1 px-3 mr-4">
-                <FaLeaf className="text-[#d3c8ab] h-4 w-4 mr-2" />
-                <span className="text-[#f0ece2] text-sm">{adminEmail}</span>
+              <div className="text-white mr-4 text-sm">
+                {adminEmail}
               </div>
               <button
                 onClick={handleLogout}
@@ -99,13 +97,13 @@ export default function AdminDashboardLayout({
       <div className="flex flex-1 overflow-hidden">
         {/* Sidebar */}
         <aside 
-          className={`bg-white border-r border-[#d3c8ab] transition-all duration-300 shadow-lg ${
+          className={`bg-gray-50 border-r border-gray-200 transition-all duration-300 ${
             isSidebarOpen ? 'w-64' : 'w-0 md:w-20'
           } overflow-hidden`}
         >
           <div className="h-full flex flex-col">
-            <div className="p-4 border-b border-[#d3c8ab] flex justify-center">
-              <RaihanLogo variant="circle" size="lg" />
+            <div className="p-4 border-b border-gray-200 flex justify-center">
+              <RaihanLogo variant="circle" size="md" />
             </div>
             <div className="flex-1 overflow-y-auto py-4">
               <ul className="space-y-2 px-3">
@@ -115,7 +113,7 @@ export default function AdminDashboardLayout({
                     className={`flex items-center px-3 py-3 rounded-md transition-colors ${
                       path === '/admin/dashboard' 
                         ? 'bg-[#6b7f3e] text-white' 
-                        : 'text-[#4a5a2b] hover:bg-[#f0ece2]'
+                        : 'text-gray-700 hover:bg-gray-100'
                     }`}
                   >
                     <FaStore className={`${isSidebarOpen ? 'mr-3' : 'mx-auto'} h-5 w-5`} />
@@ -128,7 +126,7 @@ export default function AdminDashboardLayout({
                     className={`flex items-center px-3 py-3 rounded-md transition-colors ${
                       path.includes('/admin/dashboard/products') 
                         ? 'bg-[#6b7f3e] text-white' 
-                        : 'text-[#4a5a2b] hover:bg-[#f0ece2]'
+                        : 'text-gray-700 hover:bg-gray-100'
                     }`}
                   >
                     <FaBoxOpen className={`${isSidebarOpen ? 'mr-3' : 'mx-auto'} h-5 w-5`} />
@@ -141,7 +139,7 @@ export default function AdminDashboardLayout({
                     className={`flex items-center px-3 py-3 rounded-md transition-colors ${
                       path.includes('/admin/dashboard/categories') 
                         ? 'bg-[#6b7f3e] text-white' 
-                        : 'text-[#4a5a2b] hover:bg-[#f0ece2]'
+                        : 'text-gray-700 hover:bg-gray-100'
                     }`}
                   >
                     <FaTags className={`${isSidebarOpen ? 'mr-3' : 'mx-auto'} h-5 w-5`} />
@@ -150,36 +148,22 @@ export default function AdminDashboardLayout({
                 </li>
               </ul>
             </div>
-            <div className="p-4 border-t border-[#d3c8ab]">
+            <div className="p-4 border-t border-gray-200">
               <Link 
                 href="/"
-                className="flex items-center text-[#4a5a2b] hover:text-[#6b7f3e] transition-colors"
+                className="flex items-center text-gray-700 hover:text-[#6b7f3e] transition-colors"
               >
                 <FaLeaf className={`${isSidebarOpen ? 'mr-3' : 'mx-auto'} h-5 w-5`} />
                 {isSidebarOpen && <span>View Store</span>}
               </Link>
             </div>
-            
-            {/* Pattern decoration at the bottom */}
-            <div className="relative h-24 overflow-hidden">
-              <div className="absolute inset-0 opacity-10">
-                <div className="absolute bottom-0 left-0 right-0 h-24 bg-[url('/images/moroccan-pattern.png')] bg-repeat-x"></div>
-              </div>
-              {isSidebarOpen && (
-                <div className="absolute bottom-5 left-0 right-0 text-center text-[#8e846b] text-xs">
-                  Raihan Admin Portal
-                </div>
-              )}
-            </div>
           </div>
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 overflow-y-auto bg-[#f8f5ec] relative">
-          <div className="moroccan-pattern-light min-h-full">
-            <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 relative z-10">
-              {children}
-            </div>
+        <main className="flex-1 overflow-y-auto bg-white">
+          <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+            {children}
           </div>
         </main>
       </div>

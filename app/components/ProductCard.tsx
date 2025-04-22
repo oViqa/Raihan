@@ -51,10 +51,10 @@ export default function ProductCard({ product }: ProductCardProps) {
       <Link href={productUrl} className="block relative">
         <div className="aspect-square relative overflow-hidden bg-[#f8f5ec]">
           {product.image_url ? (
-            <Image
+        <Image
               src={product.image_url}
-              alt={product.name}
-              fill
+          alt={product.name}
+          fill
               className={`object-cover transform group-hover:scale-105 transition-transform duration-500 ${
                 isLoading ? 'opacity-0' : 'opacity-100'
               }`}
@@ -75,7 +75,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           
           {/* Decorative pattern overlay */}
           <div className="absolute inset-0 bg-[url('/moroccan-pattern.png')] opacity-5 pointer-events-none"></div>
-        </div>
+      </div>
         
         {product.stock_quantity <= 5 && product.stock_quantity > 0 && (
           <span className="absolute top-2 right-2 bg-[#c17f24] text-white text-xs font-bold px-2 py-1 rounded-sm">
@@ -114,14 +114,14 @@ export default function ProductCard({ product }: ProductCardProps) {
             View Details
           </Link>
           
-          <button
+        <button
             onClick={handleWhatsAppInquiry}
             className="flex items-center text-sm bg-[#6b7f3e] hover:bg-[#4a5a2b] text-white px-3 py-2 rounded-md transition-all shadow-sm hover:shadow"
             disabled={product.stock_quantity === 0}
-          >
+        >
             <FiSend className="mr-1 h-4 w-4" />
             <span>Buy Now</span>
-          </button>
+        </button>
           
           <div className="w-full mt-2 text-xs text-[#8e846b] flex items-center">
             <FaLeaf className="mr-1 h-3 w-3 text-[#6b7f3e]" />

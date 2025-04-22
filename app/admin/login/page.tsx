@@ -1,140 +1,125 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { adminLogin } from '@/app/lib/admin';
-import Link from 'next/link';
-import RaihanLogo from '@/app/components/admin/RaihanLogo';
-import { FaLeaf, FaLock, FaEnvelope } from 'react-icons/fa';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { FaEnvelope, FaLock, FaArrowLeft, FaSpinner } from "react-icons/fa";
+import RaihanLogo from "@/app/components/admin/RaihanLogo";
 
 export default function AdminLogin() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setError(null);
+    setIsLoading(true);
+    setError("");
 
     try {
-      const admin = await adminLogin(email, password);
-      
-      if (admin) {
-        // Store admin info in session storage (simple approach for this case)
-        sessionStorage.setItem('adminAuth', JSON.stringify({ 
-          id: admin.id,
-          email: admin.email,
-          isLoggedIn: true
-        }));
+      const response = await fetch("/api/admin/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Store admin info in localStorage
+        localStorage.setItem("adminEmail", email);
+        localStorage.setItem("adminToken", data.token);
         
-        // Redirect to admin dashboard
-        router.push('/admin/dashboard');
+        router.push("/admin/dashboard");
       } else {
-        setError('Invalid email or password');
+        setError(data.message || "Login failed");
       }
     } catch (err) {
-      console.error('Login error:', err);
-      setError('An error occurred during login');
+      setError("An error occurred. Please try again.");
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#f8f5ec] py-12 px-4 sm:px-6 lg:px-8 moroccan-pattern-light">
-      <div className="max-w-md w-full">
-        <div className="moroccan-card p-8 shadow-lg">
-          <div className="flex justify-center mb-6">
-            <RaihanLogo size="lg" />
-          </div>
-          
-          <h2 className="text-center text-2xl font-bold text-[#4a5a2b] mb-6">
-            Admin Portal
-          </h2>
-          
-          {error && (
-            <div className="mb-6 bg-[#f8d7cf] p-4 rounded-md border-l-4 border-[#b54e32]">
-              <div className="text-sm text-[#b54e32] font-medium">{error}</div>
+    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
+      <div className="w-full max-w-md">
+        <div className="bg-white rounded-lg shadow-md overflow-hidden">
+          <div className="p-8">
+            <div className="flex justify-center mb-6">
+              <RaihanLogo size="lg" />
             </div>
-          )}
-          
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            <div className="space-y-4">
+            
+            <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">
+              Admin Portal
+            </h2>
+            
+            {error && (
+              <div className="mb-4 p-3 bg-red-50 text-red-700 rounded-md text-sm">
+                {error}
+              </div>
+            )}
+            
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="email-address" className="block text-[#4a5a2b] font-semibold mb-2 flex items-center">
-                  <FaEnvelope className="text-[#6b7f3e] mr-2 h-4 w-4" />
-                  Email Address
-                </label>
                 <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <FaEnvelope className="h-5 w-5 text-gray-400" />
+                  </div>
                   <input
-                    id="email-address"
-                    name="email"
                     type="email"
-                    autoComplete="email"
-                    required
-                    className="w-full py-3 px-4 border border-[#d3c8ab] rounded-md focus:outline-none focus:ring-2 focus:ring-[#6b7f3e] focus:border-transparent transition-all"
-                    placeholder="admin@example.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="pl-10 w-full py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6b7f3e] focus:border-transparent"
+                    placeholder="Email address"
                   />
                 </div>
               </div>
               
               <div>
-                <label htmlFor="password" className="block text-[#4a5a2b] font-semibold mb-2 flex items-center">
-                  <FaLock className="text-[#6b7f3e] mr-2 h-4 w-4" />
-                  Password
-                </label>
                 <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <FaLock className="h-5 w-5 text-gray-400" />
+                  </div>
                   <input
-                    id="password"
-                    name="password"
                     type="password"
-                    autoComplete="current-password"
-                    required
-                    className="w-full py-3 px-4 border border-[#d3c8ab] rounded-md focus:outline-none focus:ring-2 focus:ring-[#6b7f3e] focus:border-transparent transition-all"
-                    placeholder="••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className="pl-10 w-full py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6b7f3e] focus:border-transparent"
+                    placeholder="Password"
                   />
                 </div>
               </div>
-            </div>
-
-            <div className="pt-4">
+              
               <button
                 type="submit"
-                disabled={loading}
-                className="w-full bg-[#6b7f3e] hover:bg-[#4a5a2b] text-white font-medium py-3 px-4 rounded-md transition-colors shadow-md hover:shadow-lg transform hover:-translate-y-1 disabled:opacity-50 disabled:transform-none disabled:shadow-none flex items-center justify-center"
+                disabled={isLoading}
+                className="w-full py-2 px-4 bg-[#4a5a2b] hover:bg-[#6b7f3e] text-white rounded-md transition-colors flex items-center justify-center"
               >
-                {loading ? (
+                {isLoading ? (
                   <>
-                    <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-white mr-2"></div>
-                    Signing in...
+                    <FaSpinner className="animate-spin h-5 w-5 mr-2" />
+                    Logging in...
                   </>
                 ) : (
-                  'Sign in to Admin'
+                  "Login"
                 )}
               </button>
-            </div>
-          </form>
-          
-          <div className="mt-6 pt-6 border-t border-[#d3c8ab] text-center">
-            <Link 
-              href="/" 
-              className="text-[#6b7f3e] hover:text-[#4a5a2b] text-sm flex items-center justify-center"
-            >
-              <FaLeaf className="mr-2 h-3 w-3" />
-              Return to Homepage
-            </Link>
+            </form>
           </div>
         </div>
         
-        <div className="mt-4 text-center text-xs text-[#8e846b]">
-          © {new Date().getFullYear()} Raihan - Authentic Moroccan Herbs
+        <div className="mt-6 text-center">
+          <Link href="/" className="text-[#4a5a2b] hover:text-[#6b7f3e] flex items-center justify-center">
+            <FaArrowLeft className="mr-2" />
+            Return to website
+          </Link>
         </div>
       </div>
     </div>
