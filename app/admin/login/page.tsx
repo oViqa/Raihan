@@ -1,112 +1,126 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { adminLogin } from '@/app/lib/admin';
-import Link from 'next/link';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { FaEnvelope, FaLock, FaArrowLeft, FaSpinner } from "react-icons/fa";
+import RaihanLogo from "@/app/components/admin/RaihanLogo";
 
 export default function AdminLogin() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setError(null);
+    setIsLoading(true);
+    setError("");
 
     try {
-      const admin = await adminLogin(email, password);
-      
-      if (admin) {
-        // Store admin info in session storage (simple approach for this case)
-        sessionStorage.setItem('adminAuth', JSON.stringify({ 
-          id: admin.id,
-          email: admin.email,
-          isLoggedIn: true
-        }));
+      const response = await fetch("/api/admin/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Store admin info in localStorage
+        localStorage.setItem("adminEmail", email);
+        localStorage.setItem("adminToken", data.token);
         
-        // Redirect to admin dashboard
-        router.push('/admin/dashboard');
+        router.push("/admin/dashboard");
       } else {
-        setError('Invalid email or password');
+        setError(data.message || "Login failed");
       }
     } catch (err) {
-      console.error('Login error:', err);
-      setError('An error occurred during login');
+      setError("An error occurred. Please try again.");
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Admin Login
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            <Link href="/" className="font-medium text-indigo-600 hover:text-indigo-500">
-              Return to homepage
-            </Link>
-          </p>
+    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
+      <div className="w-full max-w-md">
+        <div className="bg-white rounded-lg shadow-md overflow-hidden">
+          <div className="p-8">
+            <div className="flex justify-center mb-6">
+              <RaihanLogo size="lg" />
+            </div>
+            
+            <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">
+              Admin Portal
+            </h2>
+            
+            {error && (
+              <div className="mb-4 p-3 bg-red-50 text-red-700 rounded-md text-sm">
+                {error}
+              </div>
+            )}
+            
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <FaEnvelope className="h-5 w-5 text-gray-400" />
+                  </div>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="pl-10 w-full py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6b7f3e] focus:border-transparent"
+                    placeholder="Email address"
+                  />
+                </div>
+              </div>
+              
+              <div>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <FaLock className="h-5 w-5 text-gray-400" />
+                  </div>
+                  <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className="pl-10 w-full py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6b7f3e] focus:border-transparent"
+                    placeholder="Password"
+                  />
+                </div>
+              </div>
+              
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full py-2 px-4 bg-[#4a5a2b] hover:bg-[#6b7f3e] text-white rounded-md transition-colors flex items-center justify-center"
+              >
+                {isLoading ? (
+                  <>
+                    <FaSpinner className="animate-spin h-5 w-5 mr-2" />
+                    Logging in...
+                  </>
+                ) : (
+                  "Login"
+                )}
+              </button>
+            </form>
+          </div>
         </div>
         
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="rounded-md shadow-sm -space-y-px">
-            <div>
-              <label htmlFor="email-address" className="sr-only">
-                Email address
-              </label>
-              <input
-                id="email-address"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="password" className="sr-only">
-                Password
-              </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-          </div>
-
-          {error && (
-            <div className="rounded-md bg-red-50 p-4">
-              <div className="text-sm text-red-700">{error}</div>
-            </div>
-          )}
-
-          <div>
-            <button
-              type="submit"
-              disabled={loading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
-            >
-              {loading ? 'Logging in...' : 'Sign in'}
-            </button>
-          </div>
-        </form>
+        <div className="mt-6 text-center">
+          <Link href="/" className="text-[#4a5a2b] hover:text-[#6b7f3e] flex items-center justify-center">
+            <FaArrowLeft className="mr-2" />
+            Return to website
+          </Link>
+        </div>
       </div>
     </div>
   );

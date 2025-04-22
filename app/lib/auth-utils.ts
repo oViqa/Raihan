@@ -7,46 +7,34 @@ export type AdminAuth = {
   isLoggedIn: boolean;
 };
 
-// Check if admin is logged in on client side
+// Helper functions for admin authentication
+
+// Check if admin is logged in
 export function isAdminLoggedIn(): boolean {
-  if (typeof window === 'undefined') {
-    return false;
-  }
+  if (typeof window === 'undefined') return false;
   
-  try {
-    const auth = sessionStorage.getItem('adminAuth');
-    if (!auth) return false;
-    
-    const adminAuth = JSON.parse(auth) as AdminAuth;
-    return adminAuth.isLoggedIn === true;
-  } catch (error) {
-    console.error('Error checking admin auth status:', error);
-    return false;
-  }
+  const token = localStorage.getItem('adminToken');
+  const email = localStorage.getItem('adminEmail');
+  
+  return !!token && !!email;
 }
 
-// Get admin data from session storage
-export function getAdminData(): AdminAuth | null {
-  if (typeof window === 'undefined') {
-    return null;
-  }
+// Get admin data from localStorage
+export function getAdminData(): { email: string; token: string } | null {
+  if (typeof window === 'undefined') return null;
   
-  try {
-    const auth = sessionStorage.getItem('adminAuth');
-    if (!auth) return null;
-    
-    return JSON.parse(auth) as AdminAuth;
-  } catch (error) {
-    console.error('Error getting admin auth data:', error);
-    return null;
-  }
+  const token = localStorage.getItem('adminToken');
+  const email = localStorage.getItem('adminEmail');
+  
+  if (!token || !email) return null;
+  
+  return { email, token };
 }
 
-// Log out the admin
+// Logout admin
 export function logoutAdmin(): void {
-  if (typeof window === 'undefined') {
-    return;
-  }
+  if (typeof window === 'undefined') return;
   
-  sessionStorage.removeItem('adminAuth');
+  localStorage.removeItem('adminToken');
+  localStorage.removeItem('adminEmail');
 } 

@@ -1,188 +1,301 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getProducts } from '@/app/lib/product';
-import { getCategories } from '@/app/lib/category';
-import ProductCard from '@/app/components/ProductCard';
-import FloatingWhatsAppButton from '@/app/components/FloatingWhatsAppButton';
+import { getProducts, deleteProduct } from '@/app/lib/product';
 import { formatPrice } from '@/app/lib/whatsapp';
-import { FaLeaf, FaShippingFast, FaHandsHelping } from 'react-icons/fa';
-import { GiHerbsBundle, GiMortar, GiMountainRoad } from 'react-icons/gi';
+import { FaEdit, FaPlus, FaTrash, FaSearch } from 'react-icons/fa';
+import { GiHerbsBundle } from 'react-icons/gi';
+import { Product } from '@/app/lib/database-schema';
 
-export default async function Home() {
-  // Fetch featured products (most recent 6 products)
-  const products = await getProducts();
-  const featuredProducts = products.slice(0, 6);
-  
-  // Fetch categories
-  const categories = await getCategories();
-  
+export default function ProductsManagementPage() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [search, setSearch] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+
+  // Fetch products on component mount
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        setLoading(true);
+        const productsData = await getProducts();
+        setProducts(productsData);
+        setFilteredProducts(productsData);
+      } catch (err) {
+        console.error('Error fetching products:', err);
+        setError('Failed to load products');
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchProducts();
+  }, []);
+
+  // Filter products based on search term
+  useEffect(() => {
+    if (products.length === 0) {
+      setFilteredProducts([]);
+      return;
+    }
+
+    if (!search.trim()) {
+      setFilteredProducts(products);
+      return;
+    }
+
+    const searchLower = search.toLowerCase();
+    const filtered = products.filter(product => 
+      product.name.toLowerCase().includes(searchLower) || 
+      (product.description && product.description.toLowerCase().includes(searchLower))
+    );
+    
+    setFilteredProducts(filtered);
+  }, [products, search]);
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+  };
+
+  const handleDeleteClick = (id: string) => {
+    setDeleteId(id);
+    setShowConfirmModal(true);
+  };
+
+  const confirmDelete = async () => {
+    if (!deleteId) return;
+    
+    try {
+      setIsDeleting(true);
+      await deleteProduct(deleteId);
+      setProducts(prevProducts => prevProducts.filter(p => p.id !== deleteId));
+      setShowConfirmModal(false);
+    } catch (err) {
+      console.error('Error deleting product:', err);
+      setError('Failed to delete product');
+    } finally {
+      setIsDeleting(false);
+      setDeleteId(null);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="container mx-auto px-4 py-12">
+        <div className="flex justify-center items-center min-h-[50vh]">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#6b7f3e]"></div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="container mx-auto px-4 py-12">
+        <div className="bg-[#f8d7cf] p-6 rounded-md border-l-4 border-[#b54e32]">
+          <p className="text-[#b54e32] font-medium">{error}</p>
+          <button 
+            onClick={() => window.location.reload()}
+            className="mt-3 text-[#6b7f3e] hover:text-[#4a5a2b] font-medium"
+          >
+            Try again
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* Hero Section */}
-      <section className="relative h-[80vh] overflow-hidden">
-        {/* Background Image with Overlay */}
-        <div className="absolute inset-0 bg-[url('/images/moroccan-herbs-bg.jpg')] bg-cover bg-center">
-          <div className="absolute inset-0 bg-gradient-to-r from-[#00000099] to-[#00000066] moroccan-pattern"></div>
+    <div className="container mx-auto px-4 py-8">
+      {/* Header */}
+      <div className="flex flex-col md:flex-row justify-between items-center mb-8">
+        <div className="flex items-center mb-4 md:mb-0">
+          <GiHerbsBundle className="h-7 w-7 text-[#6b7f3e] mr-2" />
+          <h1 className="text-2xl font-bold text-[#4a5a2b]">Manage Products</h1>
         </div>
         
-        <div className="container mx-auto px-4 relative z-10 h-full flex flex-col justify-center items-center text-center">
-          <GiHerbsBundle className="text-[#c17f24] h-20 w-20 mb-6 animate-pulse" />
-          <h1 className="text-5xl md:text-7xl font-bold mb-4 text-white moroccan-heading">
-            Coopérative Raihan
-          </h1>
-          <p className="text-xl md:text-2xl mb-10 text-[#f0ece2] max-w-2xl">
-            Discover authentic natural products harvested by generations of local farmers from the Atlas Mountains of Morocco
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
-            <Link 
-              href="/products" 
-              className="btn-primary text-lg px-8 py-4 transform hover:scale-105 transition-all duration-300 shadow-xl"
-            >
-              Explore Our Collection
-            </Link>
-            <Link 
-              href="/about" 
-              className="bg-transparent text-white border-2 border-[#c17f24] px-8 py-4 rounded-md font-medium hover:bg-[#c17f2420] transition-all duration-300 text-lg"
-            >
-              Our Heritage
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Products */}
-      <section className="py-20 bg-[#f8f5ec]">
-        <div className="container mx-auto px-4">
-          <div className="mb-16 text-center">
-            <div className="flex items-center justify-center mb-3">
-              <FaLeaf className="h-6 w-6 text-[#6b7f3e] mr-2" />
-              <h2 className="text-4xl font-bold text-[#4a5a2b] moroccan-heading">
-                Nos Produits
-              </h2>
-            </div>
-            <p className="text-[#8e846b] text-xl max-w-3xl mx-auto mt-3">
-              Handpicked treasures from Morocco's finest harvests
-            </p>
+        <div className="flex flex-col sm:flex-row gap-4">
+          <div className="relative">
+            <input
+              type="text"
+              value={search}
+              onChange={handleSearchChange}
+              placeholder="Search products..."
+              className="pl-10 pr-4 py-2 border border-[#d3c8ab] rounded-md focus:outline-none focus:ring-2 focus:ring-[#6b7f3e] focus:border-transparent"
+            />
+            <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#8e846b]" />
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredProducts.length > 0 ? (
-              featuredProducts.map(product => (
-                <ProductCard key={product.id} product={product} />
-              ))
-            ) : (
-              <div className="col-span-full moroccan-card p-12 text-center">
-                <GiHerbsBundle className="h-16 w-16 text-[#d3c8ab] mx-auto mb-4" />
-                <p className="text-lg text-[#4a5a2b]">Our treasures are being harvested.</p>
-                <Link 
-                  href="/admin/dashboard/products/new"
-                  className="mt-4 inline-block text-[#6b7f3e] font-medium hover:text-[#4a5a2b]"
-                >
-                  Add your first product
-                </Link>
-              </div>
-            )}
-          </div>
-          
-          <div className="text-center mt-12">
-            <Link 
-              href="/products" 
-              className="inline-flex items-center text-[#6b7f3e] hover:text-[#4a5a2b] font-medium text-lg group"
-            >
-              View All Products 
-              <span className="ml-2 transform group-hover:translate-x-2 transition-transform">→</span>
-            </Link>
-          </div>
+          <Link
+            href="/admin/dashboard/products/new"
+            className="flex items-center justify-center bg-[#6b7f3e] text-white px-4 py-2 rounded-md hover:bg-[#4a5a2b] transition-colors"
+          >
+            <FaPlus className="mr-2" />
+            Add New Product
+          </Link>
         </div>
-      </section>
-
-      {/* Parallax Moroccan Banner }
-      <section className="relative h-80 md:h-96 bg-fixed bg-cover bg-center bg-[url('/images/moroccan-pattern-banner.jpg')] overflow-hidden">
-        <div className="absolute inset-0 bg-[#00000066]"></div>
-        <div className="container mx-auto px-4 relative z-10 h-full flex flex-col justify-center items-center text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Natural Remedies & Traditions</h2>
-          <p className="text-xl text-[#f0ece2] max-w-2xl">
-            Experience the ancient wisdom and healing properties of Morocco's botanical treasures
-          </p>
-        </div>
-      </section>
-
-      {/* Categories Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="mb-16 text-center">
-            <div className="flex items-center justify-center mb-3">
-              <GiMortar className="h-6 w-6 text-[#c17f24] mr-2" />
-              <h2 className="text-4xl font-bold text-[#4a5a2b] moroccan-heading">
-                Explore Our Collections
-              </h2>
-            </div>
-            <p className="text-[#8e846b] text-xl max-w-3xl mx-auto mt-3">
-              Curated categories of Morocco's finest natural offerings
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {categories.map((category) => (
-              <Link
-                key={category.id}
-                href={`/products?category=${category.id}`}
-                className="moroccan-card group p-8 text-center transform hover:-translate-y-2 transition-all duration-500 hover:shadow-xl overflow-hidden"
-              >
-                <div className="relative z-10">
-                  <h3 className="text-2xl font-bold text-[#4a5a2b] mb-3 group-hover:text-[#6b7f3e] transition-colors">
-                    {category.name}
-                  </h3>
-                  <p className="text-[#8e846b] mb-4">
-                    {category.description || `Authentic ${category.name.toLowerCase()} from the Atlas Mountains`}
-                  </p>
-                  <span className="inline-block text-[#c17f24] font-medium group-hover:translate-x-2 transition-transform">
-                    Discover →
-                  </span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-[#323232] text-white py-12">
-        <div className="container mx-auto px-4">
-          <div className="text-center">
-            <div className="flex items-center justify-center mb-4">
-              <GiHerbsBundle className="h-8 w-8 text-[#6b7f3e] mr-2" />
-              <h3 className="text-2xl font-bold">Savon</h3>
-            </div>
-            <p className="mb-4 text-[#d3c8ab]">Natural treasures from the Atlas Mountains</p>
-            <p className="text-[#8e846b]">© {new Date().getFullYear()} Raihan. All rights reserved.</p>
-            <div className="mt-6 space-x-4">
-              <Link 
-                href="/products"
-                className="text-[#d3c8ab] hover:text-white text-sm"
-              >
-                All Products
-              </Link>
-              <span className="text-[#8e846b]">|</span>
-              <Link 
-                href="/about"
-                className="text-[#d3c8ab] hover:text-white text-sm"
-              >
-                Our Story
-              </Link>
-              <span className="text-[#8e846b]">|</span>
-              <Link 
-                href="/admin/login"
-                className="text-[#d3c8ab] hover:text-white text-sm"
-              >
-                Admin Portal
-              </Link>
-            </div>
-          </div>
-        </div>
-      </footer>
+      </div>
       
-      <FloatingWhatsAppButton />
+      {/* Products Table */}
+      <div className="bg-white rounded-lg shadow overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="min-w-full divide-y divide-[#d3c8ab]">
+            <thead className="bg-[#f0ece2]">
+              <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-[#4a5a2b] uppercase tracking-wider">Product</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-[#4a5a2b] uppercase tracking-wider">Price</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-[#4a5a2b] uppercase tracking-wider">Stock</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-[#4a5a2b] uppercase tracking-wider">Actions</th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-[#d3c8ab]">
+              {filteredProducts.length === 0 ? (
+                <tr>
+                  <td colSpan={4} className="px-6 py-10 text-center text-[#8e846b]">
+                    {products.length === 0 ? (
+                      <>
+                        <GiHerbsBundle className="h-12 w-12 text-[#d3c8ab] mx-auto mb-3" />
+                        <p className="text-lg mb-2">No products found</p>
+                        <Link 
+                          href="/admin/dashboard/products/new"
+                          className="text-[#6b7f3e] hover:text-[#4a5a2b] font-medium"
+                        >
+                          Add your first product
+                        </Link>
+                      </>
+                    ) : (
+                      <p>No products match your search criteria</p>
+                    )}
+                  </td>
+                </tr>
+              ) : (
+                filteredProducts.map(product => (
+                  <tr key={product.id} className="hover:bg-[#f8f5ec] transition-colors">
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="flex items-center">
+                        <div className="h-10 w-10 flex-shrink-0 mr-3 bg-[#f0ece2] rounded-md overflow-hidden">
+                          {product.image_url ? (
+                            <Image 
+                              src={product.image_url} 
+                              alt={product.name}
+                              width={40}
+                              height={40}
+                              className="h-10 w-10 object-cover"
+                            />
+                          ) : (
+                            <div className="h-10 w-10 flex items-center justify-center bg-[#f0ece2]">
+                              <GiHerbsBundle className="h-6 w-6 text-[#8e846b]" />
+                            </div>
+                          )}
+                        </div>
+                        <div>
+                          <div className="font-medium text-[#4a5a2b]">{product.name}</div>
+                          <div className="text-xs text-[#8e846b] max-w-xs truncate">
+                            {product.description}
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-[#c17f24] font-semibold">
+                      {formatPrice(Number(product.price))}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                        product.stock_quantity <= 0 
+                          ? 'bg-red-100 text-red-800'
+                          : product.stock_quantity <= 5
+                            ? 'bg-yellow-100 text-yellow-800'
+                            : 'bg-green-100 text-green-800'
+                      }`}>
+                        {product.stock_quantity <= 0 
+                          ? 'Out of stock' 
+                          : `${product.stock_quantity} in stock`
+                        }
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                      <div className="flex items-center space-x-3">
+                        <Link
+                          href={`/admin/dashboard/products/edit/${product.id}`}
+                          className="text-[#6b7f3e] hover:text-[#4a5a2b]"
+                        >
+                          <FaEdit className="h-5 w-5" title="Edit Product" />
+                        </Link>
+                        <button
+                          onClick={() => handleDeleteClick(product.id)}
+                          className="text-red-600 hover:text-red-800"
+                        >
+                          <FaTrash className="h-5 w-5" title="Delete Product" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      {/* Confirmation Modal */}
+      {showConfirmModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50 animate-fadeIn">
+          <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-8 border border-[#d3c8ab] transform transition-all duration-300 animate-scaleIn moroccan-pattern-light relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#6b7f3e] via-[#c17f24] to-[#b54e32]"></div>
+            
+            <div className="flex items-center mb-6">
+              <div className="bg-red-100 p-3 rounded-full mr-4">
+                <FaTrash className="h-6 w-6 text-red-600" />
+              </div>
+              <h3 className="text-xl font-bold text-[#4a5a2b]">Confirm Deletion</h3>
+            </div>
+            
+            <p className="text-[#8e846b] mb-6">
+              Are you sure you want to delete this product? This action <span className="font-bold text-[#b54e32]">cannot be undone</span>.
+            </p>
+            
+            <div className="flex items-center justify-between">
+              <div className="flex items-center text-xs text-[#8e846b]">
+                <GiHerbsBundle className="h-4 w-4 text-[#6b7f3e] mr-1" />
+                <span>Deleted products cannot be recovered</span>
+              </div>
+            </div>
+            
+            <div className="flex justify-end space-x-4 mt-6 pt-4 border-t border-[#d3c8ab]">
+              <button
+                onClick={() => setShowConfirmModal(false)}
+                className="px-5 py-2.5 border border-[#d3c8ab] rounded-md text-[#4a5a2b] font-medium hover:bg-[#f8f5ec] transition-colors focus:outline-none focus:ring-2 focus:ring-[#6b7f3e] focus:ring-opacity-50"
+                disabled={isDeleting}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmDelete}
+                className="px-5 py-2.5 bg-red-600 text-white rounded-md font-medium hover:bg-red-700 transition-colors shadow-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 flex items-center"
+                disabled={isDeleting}
+              >
+                {isDeleting ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-white mr-2"></div>
+                    Deleting...
+                  </>
+                ) : (
+                  <>
+                    <FaTrash className="h-4 w-4 mr-2" />
+                    Delete Product
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
