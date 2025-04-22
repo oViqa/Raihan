@@ -35,7 +35,7 @@ export default async function Home() {
 
       <div className="container mx-auto px-4 relative z-10 h-full flex flex-col justify-center items-center text-center">
         <GiHerbsBundle className="text-[#c17f24] h-20 w-20 mb-6 animate-pulse" />
-        <h1 className="text-5xl md:text-7xl font-bold mb-4 text-white moroccan-heading">
+        <h1 className="text-5xl md:text-7xl font-bold mb-4 text-white moroccan-heading slow-green-pulse">
         Coopérative Raihan
         </h1>
         <p className="text-xl md:text-2xl mb-10 text-[#f0ece2] max-w-2xl">
@@ -47,12 +47,6 @@ export default async function Home() {
           className="btn-primary text-lg px-8 py-4 transform hover:scale-105 transition-all duration-300 shadow-xl"
         >
           Explorez Notre Collection
-        </Link>
-        <Link
-          href="/about"
-          className="bg-transparent text-white border-2 border-[#c17f24] px-8 py-4 rounded-md font-medium hover:bg-[#c17f2420] transition-all duration-300 text-lg"
-        >
-          Notre Héritage
         </Link>
         </div>
       </div>
@@ -122,34 +116,33 @@ export default async function Home() {
         </div>
       </div>
       </section>
-
       {/* Footer */}
       <footer className="bg-[#323232] text-white py-12">
-      <div className="container mx-auto px-4">
-        <div className="text-center">
-        <div className="flex items-center justify-center mb-4">
-          <GiHerbsBundle className="h-8 w-8 text-[#6b7f3e] mr-2" />
-          <h3 className="text-2xl font-bold">Raihan</h3>
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <div className="flex items-center justify-center mb-4">
+              <GiHerbsBundle className="h-8 w-8 text-[#6b7f3e] mr-2" />
+              <h3 className="text-2xl font-bold">Raihan</h3>
+            </div>
+            <p className="mb-4 text-[#d3c8ab]">Trésors naturels des montagnes de l'Atlas</p>
+            <p className="text-[#8e846b]">© {new Date().getFullYear()} Raihan. Tous droits réservés.</p>
+            <div className="mt-6 space-x-4">
+              <Link
+                href="/products"
+                className="text-[#d3c8ab] hover:text-white text-sm"
+              >
+                Nos Produits
+              </Link>
+              <span className="text-[#8e846b]">|</span>
+              <Link
+                href="/admin/login"
+                className="text-[#d3c8ab] hover:text-white text-sm"
+              >
+                Portail Admin
+              </Link>
+            </div>
+          </div>
         </div>
-        <p className="mb-4 text-[#d3c8ab]">Trésors naturels des montagnes de l'Atlas</p>
-        <p className="text-[#8e846b]">© {new Date().getFullYear()} Raihan. Tous droits réservés.</p>
-        <div className="mt-6 space-x-4">
-            <Link
-            href="/products"
-            className="text-[#d3c8ab] hover:text-white text-sm"
-            >
-            Nos Produits
-            </Link>
-            <span className="text-[#8e846b]">|</span>
-            <Link
-            href="/admin/login"
-            className="text-[#d3c8ab] hover:text-white text-sm"
-            >
-            Portail Admin
-            </Link>
-        </div>
-        </div>
-      </div>
       </footer>
 
       <FloatingWhatsAppButton />

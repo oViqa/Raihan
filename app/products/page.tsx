@@ -155,7 +155,33 @@ export default function ProductsPage() {
         </p>
         <div className="h-1 w-40 bg-[#d3c8ab] mx-auto rounded-full"></div>
       </div>
-      
+      {/* Search Box */}
+      <div className="moroccan-card p-6 mt-4">
+        <div className="flex items-center mb-4">
+          <FaSearch className="h-4 w-4 text-[#6b7f3e] mr-2" />
+          <h2 className="text-lg font-semibold text-[#4a5a2b]">Find Products</h2>
+        </div>
+        <form onSubmit={handleSearchSubmit}>
+          <div className="relative">
+            <input
+              type="text"
+              value={search}
+              onChange={handleSearchChange}
+              placeholder="Search by name or ingredients..."
+              className="w-full border border-[#d3c8ab] rounded-md py-2 px-3 text-[#4a5a2b] leading-tight focus:outline-none focus:ring-2 focus:ring-[#6b7f3e] focus:border-transparent"
+            />
+            <button
+              type="submit"
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 text-[#8e846b] hover:text-[#6b7f3e]"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </button>
+          </div>
+        </form>
+      </div>
+
       {/* Filters and Search */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-8">
         {/* Sidebar Filters */}
@@ -179,7 +205,7 @@ export default function ProductsPage() {
                   All Products
                 </label>
               </div>
-              
+
               {categories.map(category => (
                 <div key={category.id} className="flex items-center">
                   <input
@@ -197,33 +223,6 @@ export default function ProductsPage() {
               ))}
             </div>
           </div>
-          
-          {/* Search Box */}
-          <div className="moroccan-card p-6 mt-4">
-            <div className="flex items-center mb-4">
-              <FaSearch className="h-4 w-4 text-[#6b7f3e] mr-2" />
-              <h2 className="text-lg font-semibold text-[#4a5a2b]">Find Products</h2>
-            </div>
-            <form onSubmit={handleSearchSubmit}>
-              <div className="relative">
-                <input
-                  type="text"
-                  value={search}
-                  onChange={handleSearchChange}
-                  placeholder="Search by name or ingredients..."
-                  className="w-full border border-[#d3c8ab] rounded-md py-2 px-3 text-[#4a5a2b] leading-tight focus:outline-none focus:ring-2 focus:ring-[#6b7f3e] focus:border-transparent"
-                />
-                <button
-                  type="submit"
-                  className="absolute right-2 top-1/2 transform -translate-y-1/2 text-[#8e846b] hover:text-[#6b7f3e]"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
-                </button>
-              </div>
-            </form>
-          </div>
         </div>
         {/* Product Grid */}
         <div className="lg:col-span-3">
@@ -232,7 +231,7 @@ export default function ProductsPage() {
             <p className="text-[#4a5a2b] font-medium">
               <span className="text-[#c17f24] font-bold">{filteredProducts.length}</span> {filteredProducts.length === 1 ? 'product' : 'products'} found
             </p>
-            
+
             {(selectedCategory || search) && (
               <button
                 onClick={() => {
@@ -246,7 +245,7 @@ export default function ProductsPage() {
               </button>
             )}
           </div>
-          
+
           {filteredProducts.length === 0 ? (
             <div className="moroccan-card p-10 text-center">
               <GiHerbsBundle className="h-16 w-16 text-[#d3c8ab] mx-auto mb-4" />
@@ -272,7 +271,7 @@ export default function ProductsPage() {
           )}
         </div>
       </div>
-      
+
       <FloatingWhatsAppButton />
     </div>
   );
