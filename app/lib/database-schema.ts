@@ -5,10 +5,10 @@ export type Product = {
   id: string;
   name: string;
   description: string;
-  price: number;
+  price: number;       // Internal use only - not displayed in UI
   image_url: string | null;
   category: string;
-  stock_quantity: number;
+  stock_quantity: number; // Internal use only - not displayed in UI
   created_at: string;
 };
 

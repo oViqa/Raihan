@@ -90,22 +90,6 @@ export default function ProductCard({ product }: ProductCardProps) {
           </div>
         </div>
         
-        {product.stock_quantity <= 5 && product.stock_quantity > 0 && (
-          <div className="absolute top-3 right-3">
-            <span className="bg-[#c17f24] text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">
-              Limited Stock
-            </span>
-          </div>
-        )}
-        
-        {product.stock_quantity === 0 && (
-          <div className="absolute top-3 right-3">
-            <span className="bg-[#b54e32] text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">
-              Out of Stock
-            </span>
-          </div>
-        )}
-        
         {/* Origin badge */}
         <span className="absolute bottom-3 left-3 bg-white/90 text-[#4a5a2b] text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-sm shadow-sm flex items-center">
           <FaLeaf className="w-3 h-3 mr-1 text-[#6b7f3e]" />
@@ -127,33 +111,14 @@ export default function ProductCard({ product }: ProductCardProps) {
         </Link>
         
         <div className="mt-auto space-y-2">
-          {product.stock_quantity > 0 ? (
-            <button
-              onClick={handleWhatsAppInquiry}
-              className="w-full flex items-center justify-center text-sm bg-[#6b7f3e] hover:bg-[#4a5a2b] text-white px-4 py-3 rounded-lg transition-all shadow-sm hover:shadow focus:ring-2 focus:ring-[#6b7f3e]/50 focus:outline-none"
-              aria-label={`Buy ${product.name} on WhatsApp`}
-            >
-              <FiSend className="mr-2 h-4 w-4" />
-              <span>Buy on WhatsApp</span>
-            </button>
-          ) : (
-            <button
-              disabled
-              className="w-full flex items-center justify-center text-sm bg-gray-200 text-gray-500 px-4 py-3 rounded-lg cursor-not-allowed"
-            >
-              <FiSend className="mr-2 h-4 w-4" />
-              <span>Currently Unavailable</span>
-            </button>
-          )}
-          
-          <div className="w-full text-xs text-[#8e846b] flex items-center justify-center bg-[#f8f5ec] py-2 px-3 rounded-lg">
-            <FaLeaf className="mr-1.5 h-3 w-3 text-[#6b7f3e]" />
-            <span>
-              {product.stock_quantity > 0 
-                ? `${product.stock_quantity} ${product.stock_quantity === 1 ? 'unit' : 'units'} available` 
-                : 'Out of stock'}
-            </span>
-          </div>
+          <button
+            onClick={handleWhatsAppInquiry}
+            className="w-full flex items-center justify-center text-sm bg-[#6b7f3e] hover:bg-[#4a5a2b] text-white px-4 py-3 rounded-lg transition-all shadow-sm hover:shadow focus:ring-2 focus:ring-[#6b7f3e]/50 focus:outline-none"
+            aria-label={`Inquire about ${product.name} on WhatsApp`}
+          >
+            <FiSend className="mr-2 h-4 w-4" />
+            <span>Inquire on WhatsApp</span>
+          </button>
         </div>
       </div>
     </div>

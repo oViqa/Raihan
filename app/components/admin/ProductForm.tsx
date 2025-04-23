@@ -56,7 +56,7 @@ export default function ProductForm({ initialData, isEditing = false }: ProductF
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     
-    // Handle numeric inputs
+    // Handle numeric inputs (not used for visible fields anymore but keeping the logic)
     if (name === 'price' || name === 'stock_quantity') {
       const numValue = parseFloat(value);
       setFormData(prev => ({ ...prev, [name]: isNaN(numValue) ? 0 : numValue }));
@@ -192,49 +192,6 @@ export default function ProductForm({ initialData, isEditing = false }: ProductF
                 placeholder="Describe your product (ingredients, benefits, etc.)"
                 className="w-full py-3 px-4 border border-[#d3c8ab] rounded-md focus:outline-none focus:ring-2 focus:ring-[#6b7f3e] focus:border-transparent transition-all"
               />
-            </div>
-          
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label htmlFor="price" className="block text-[#4a5a2b] font-semibold mb-2 flex items-center">
-                  <FaLeaf className="text-[#6b7f3e] mr-2 h-4 w-4" />
-                  Price * <span className="ml-2 text-xs text-[#8e846b] font-normal">(not displayed on website)</span>
-                </label>
-                <div className="relative">
-                  <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#8e846b]">$</span>
-                  <input
-                    id="price"
-                    name="price"
-                    type="number"
-                    step="0.01"
-                    min="0"
-                    value={formData.price === 0 ? '' : formData.price}
-                    onChange={handleInputChange}
-                    required
-                    placeholder="0.00"
-                    className="w-full py-3 pl-8 pr-4 border border-[#d3c8ab] rounded-md focus:outline-none focus:ring-2 focus:ring-[#6b7f3e] focus:border-transparent transition-all"
-                  />
-                </div>
-                <p className="mt-1 text-xs text-[#8e846b]">Used for internal tracking and WhatsApp orders.</p>
-              </div>
-              
-              <div>
-                <label htmlFor="stock_quantity" className="block text-[#4a5a2b] font-semibold mb-2 flex items-center">
-                  <FaLeaf className="text-[#6b7f3e] mr-2 h-4 w-4" />
-                  Stock Quantity *
-                </label>
-                <input
-                  id="stock_quantity"
-                  name="stock_quantity"
-                  type="number"
-                  min="0"
-                  value={formData.stock_quantity === 0 ? '' : formData.stock_quantity}
-                  onChange={handleInputChange}
-                  required
-                  placeholder="Available quantity"
-                  className="w-full py-3 px-4 border border-[#d3c8ab] rounded-md focus:outline-none focus:ring-2 focus:ring-[#6b7f3e] focus:border-transparent transition-all"
-                />
-              </div>
             </div>
             
             <div>

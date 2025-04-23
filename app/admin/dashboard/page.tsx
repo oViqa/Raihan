@@ -204,19 +204,19 @@ export default function Dashboard() {
               <div>
                 <h4 className="text-md font-semibold text-[#4a5a2b] mb-4 flex items-center">
                   <FaShippingFast className="h-4 w-4 mr-2 text-[#6b7f3e]" />
-                  Inventory Management
+                  Product Management
                 </h4>
                 <div className="space-y-4">
                   <div className="bg-[#f8f5ec] p-4 rounded-md border border-[#d3c8ab]">
-                    <h5 className="font-medium text-[#4a5a2b] mb-2">Low Stock Items</h5>
+                    <h5 className="font-medium text-[#4a5a2b] mb-2">Product Categories</h5>
                     <p className="text-sm text-[#8e846b]">
-                      Check your inventory for products that are running low on stock. 
+                      Organize your products into categories to make them easier to find.
                     </p>
                     <Link 
                       href="/admin/dashboard/products" 
                       className="mt-2 inline-flex text-[#6b7f3e] hover:text-[#4a5a2b] text-sm font-medium"
                     >
-                      Manage inventory →
+                      Manage products →
                     </Link>
                   </div>
                   
