@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { getProducts } from '@/app/lib/product';
 import { getCategories } from '@/app/lib/category';
@@ -11,7 +11,29 @@ import { FaSearch, FaLeaf, FaFilter, FaTimes, FaArrowRight, FaChevronRight } fro
 import { GiHerbsBundle, GiMortar, GiSeedling } from 'react-icons/gi';
 import { FiArrowRight, FiSliders } from 'react-icons/fi';
 
-export default function ProductsPage() {
+// Loading component for Suspense fallback
+function ProductsLoading() {
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-[url('/herbal-pattern.svg')] bg-repeat">
+      <div className="text-center bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-[#d3c8ab]/40 relative overflow-hidden transform transition-all duration-500 max-w-sm mx-auto">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#f8f5ec]/80 to-white opacity-50"></div>
+        <div className="relative z-10">
+          <div className="inline-block">
+            <div className="relative">
+              <div className="animate-spin rounded-full h-16 md:h-24 w-16 md:w-24 border-t-4 border-b-4 border-[#6b7f3e]"></div>
+              <GiMortar className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[#6b7f3e] h-8 md:h-12 w-8 md:w-12" />
+            </div>
+          </div>
+          <p className="mt-6 md:mt-8 text-[#4a5a2b] font-semibold text-lg md:text-xl">Discovering Nature's Treasures</p>
+          <p className="text-[#8e846b] mt-2 text-sm md:text-base">Loading our curated collection of authentic Moroccan herbs...</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Client component that uses useSearchParams
+function ProductsContent() {
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -127,23 +149,7 @@ export default function ProductsPage() {
   };
   
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-[url('/herbal-pattern.svg')] bg-repeat">
-        <div className="text-center bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-[#d3c8ab]/40 relative overflow-hidden transform transition-all duration-500 max-w-sm mx-auto">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#f8f5ec]/80 to-white opacity-50"></div>
-          <div className="relative z-10">
-            <div className="inline-block">
-              <div className="relative">
-                <div className="animate-spin rounded-full h-16 md:h-24 w-16 md:w-24 border-t-4 border-b-4 border-[#6b7f3e]"></div>
-                <GiMortar className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[#6b7f3e] h-8 md:h-12 w-8 md:w-12" />
-              </div>
-            </div>
-            <p className="mt-6 md:mt-8 text-[#4a5a2b] font-semibold text-lg md:text-xl">Discovering Nature's Treasures</p>
-            <p className="text-[#8e846b] mt-2 text-sm md:text-base">Loading our curated collection of authentic Moroccan herbs...</p>
-          </div>
-        </div>
-      </div>
-    );
+    return <ProductsLoading />;
   }
   
   if (error) {
@@ -426,5 +432,14 @@ export default function ProductsPage() {
       {/* Floating WhatsApp Button */}
       <FloatingWhatsAppButton />
     </div>
+  );
+}
+
+// Main component
+export default function ProductsPage() {
+  return (
+    <Suspense fallback={<ProductsLoading />}>
+      <ProductsContent />
+    </Suspense>
   );
 } 
