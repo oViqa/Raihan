@@ -15,6 +15,7 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
     ],
+    domains: ['volfubgmhuqlknugaxqf.supabase.co']
   },
 };
 
