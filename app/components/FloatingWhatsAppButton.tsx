@@ -63,7 +63,7 @@ const FloatingWhatsAppButton = ({
             <IoClose size={12} />
           </button>
           <p className="text-sm text-[#4a5a2b]">
-            Questions about our products? Message us on WhatsApp!
+            لديك أسئلة حول منتجاتنا؟ راسلنا على واتساب!
           </p>
         </div>
       )}
@@ -81,7 +81,7 @@ const FloatingWhatsAppButton = ({
           transform transition-all duration-500
           hover:scale-110 active:scale-95
         `}
-        aria-label="Contact us on WhatsApp"
+        aria-label="تواصل معنا على واتساب"
       >
         <FaWhatsapp className={`text-2xl ${isButtonHovered ? 'animate-pulse' : ''}`} />
       </button>

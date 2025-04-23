@@ -145,3 +145,20 @@ USING (bucket_id = 'product-images');
 CREATE POLICY "Anyone can delete product images"
 ON storage.objects FOR DELETE
 USING (bucket_id = 'product-images');
+
+UPDATE categories SET 
+  name = 'زيوت أساسية' WHERE name = 'Huiles essentielles';
+UPDATE categories SET 
+  name = 'زيوت نباتية' WHERE name = 'Huiles végétales';
+UPDATE categories SET 
+  name = 'نباتات جافة' WHERE name = 'Plantes sèches';
+UPDATE categories SET 
+  name = 'ماء الزهور' WHERE name = 'Hydrolats';
+UPDATE categories SET 
+  name = 'أملاح الاستحمام' WHERE name = 'Sels de bain';
+UPDATE categories SET 
+  name = 'شامبوهات' WHERE name = 'Shampoings';
+UPDATE categories SET 
+  name = 'الصابون الأسود' WHERE name = 'Savon noir';
+UPDATE categories SET 
+  name = 'الطين' WHERE name = 'Argiles';

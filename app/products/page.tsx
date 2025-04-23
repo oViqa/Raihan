@@ -139,7 +139,7 @@ export default function ProductsPage() {
               </div>
             </div>
             <p className="mt-6 md:mt-8 text-[#4a5a2b] font-semibold text-lg md:text-xl">Discovering Nature's Treasures</p>
-            <p className="text-[#8e846b] mt-2 text-sm md:text-base">Loading our curated collection of authentic Moroccan herbs...</p>
+            <p className="text-[#8e846b] mt-2 text-sm md:text-base">جاري تحميل مجموعتنا المصنفة من الأعشاب المغربية...</p>
           </div>
         </div>
       </div>
@@ -177,7 +177,7 @@ export default function ProductsPage() {
               {selectedCategory ? getCategoryName(selectedCategory) : 'Natural Moroccan Herbs'}
             </h1>
             <p className={`text-[#8e846b] mb-6 max-w-2xl mx-auto transform transition-all duration-700 delay-100 ${pageLoaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}>
-              Ethically sourced directly from local artisans and farmers, our products preserve centuries of Moroccan tradition
+              أعشاب مغربية مصنفة على أساس أصلها المحلي، تحمل علامات عريقة من التراث المغربي
             </p>
             
             {/* Search Form */}
@@ -339,7 +339,7 @@ export default function ProductsPage() {
                   <div>
                     <h3 className="font-bold text-lg mb-3">Moroccan Tradition</h3>
                     <p className="text-sm opacity-90 mb-4 leading-relaxed">
-                      Discover products harvested and processed using ancient techniques passed down through generations.
+                      اكتشف المنتجات التي تم جمعها ومعالجتها باستخدام تقنيات عتيقة تمررت إلينا من جيل إلى جيل.
                     </p>
                     <a href="/about" className="inline-flex items-center text-sm font-medium text-white/80 hover:text-white transition-colors group">
                       Our Story <FaChevronRight className="ml-1 h-3 w-3 group-hover:translate-x-1 transition-transform" />
@@ -391,9 +391,9 @@ export default function ProductsPage() {
                 <div className="bg-[#f8f5ec] p-4 rounded-full inline-flex items-center justify-center mb-4">
                   <GiHerbsBundle className="h-12 w-12 text-[#6b7f3e]" />
                 </div>
-                <h3 className="text-xl font-bold text-[#4a5a2b] mb-2">No Products Found</h3>
+                <h3 className="text-xl font-bold text-[#4a5a2b] mb-2">لم يتم العثور على منتجات</h3>
                 <p className="text-[#8e846b] text-base mb-6 max-w-md mx-auto">
-                  We couldn't find any products matching your criteria. Try adjusting your filters or search terms.
+                  لم نتمكن من العثور على منتجات تطابق معاييرك. جرب تعديل مرشحاتك أو مصفوفات البحث.
                 </p>
                 <button
                   onClick={clearFilters}

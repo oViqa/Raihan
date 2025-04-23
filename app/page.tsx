@@ -70,7 +70,7 @@ export default function Home() {
       <div className="container mx-auto px-4 relative z-10 h-full flex flex-col justify-center items-center text-center">
         <GiHerbsBundle className="text-[#c17f24] h-20 w-20 mb-6 animate-pulse" />
         <h1 className="text-5xl md:text-7xl font-bold mb-4 text-white moroccan-heading slow-green-pulse">
-        Coopérative Raihan
+        تعاونية ريحان
         </h1>
         <p className="text-xl md:text-2xl mb-10 text-[#f0ece2] max-w-2xl" style={isArabic ? { fontFamily: "'Noto Sans Arabic', sans-serif" } : {}}>
           {isArabic 

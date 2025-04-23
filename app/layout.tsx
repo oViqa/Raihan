@@ -16,17 +16,17 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Raihan - WhatsApp Shopping",
-  description: "Shop quality products online and purchase via WhatsApp",
+  title: 'تعاونية ريحان - التسوق عبر واتساب',
+  description: 'منتجات طبيعية من جبال الأطلس المغربية',
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <html lang="en">
+    <html lang="ar" dir="rtl">
       <head>
         <link
           href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;700&display=swap"

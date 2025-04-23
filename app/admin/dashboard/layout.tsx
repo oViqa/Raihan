@@ -50,7 +50,7 @@ export default function AdminDashboardLayout({
           <div className="animate-pulse mb-4">
             <RaihanLogo variant="circle" size="lg" />
           </div>
-          <p className="text-[#4a5a2b] font-semibold">Loading...</p>
+          <p className="text-[#4a5a2b] font-semibold">جاري التحميل...</p>
         </div>
       </div>
     );
@@ -87,7 +87,7 @@ export default function AdminDashboardLayout({
                 className="bg-[#b54e32] hover:bg-[#923f28] text-white px-3 py-2 rounded-md text-sm font-medium flex items-center transition-colors"
               >
                 <FaSignOutAlt className="mr-2" />
-                Logout
+                تسجيل الخروج
               </button>
             </div>
           </div>
@@ -117,7 +117,7 @@ export default function AdminDashboardLayout({
                     }`}
                   >
                     <FaStore className={`${isSidebarOpen ? 'mr-3' : 'mx-auto'} h-5 w-5`} />
-                    {isSidebarOpen && <span>Dashboard</span>}
+                    {isSidebarOpen && <span>لوحة التحكم</span>}
                   </Link>
                 </li>
                 <li>
@@ -130,7 +130,7 @@ export default function AdminDashboardLayout({
                     }`}
                   >
                     <FaBoxOpen className={`${isSidebarOpen ? 'mr-3' : 'mx-auto'} h-5 w-5`} />
-                    {isSidebarOpen && <span>Products</span>}
+                    {isSidebarOpen && <span>المنتجات</span>}
                   </Link>
                 </li>
                 <li>
@@ -143,7 +143,7 @@ export default function AdminDashboardLayout({
                     }`}
                   >
                     <FaTags className={`${isSidebarOpen ? 'mr-3' : 'mx-auto'} h-5 w-5`} />
-                    {isSidebarOpen && <span>Categories</span>}
+                    {isSidebarOpen && <span>الفئات</span>}
                   </Link>
                 </li>
                 <li>
@@ -156,7 +156,7 @@ export default function AdminDashboardLayout({
                     }`}
                   >
                     <FaUsersCog className={`${isSidebarOpen ? 'mr-3' : 'mx-auto'} h-5 w-5`} />
-                    {isSidebarOpen && <span>Admins</span>}
+                    {isSidebarOpen && <span>المشرفون</span>}
                   </Link>
                 </li>
               </ul>
@@ -167,7 +167,7 @@ export default function AdminDashboardLayout({
                 className="flex items-center text-gray-700 hover:text-[#6b7f3e] transition-colors"
               >
                 <FaLeaf className={`${isSidebarOpen ? 'mr-3' : 'mx-auto'} h-5 w-5`} />
-                {isSidebarOpen && <span>View Store</span>}
+                {isSidebarOpen && <span>عرض المتجر</span>}
               </Link>
             </div>
           </div>

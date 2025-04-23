@@ -9,7 +9,11 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    domains: ['cdn.discordapp.com'],
+    remotePatterns: [
+      {
+        hostname: 'volfubgmhuqlknugaxqf.supabase.co',
+      },
+    ],
   },
 };
 

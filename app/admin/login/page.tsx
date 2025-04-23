@@ -55,7 +55,7 @@ export default function AdminLogin() {
             </div>
             
             <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">
-              Admin Portal
+              بوابة المشرف
             </h2>
             
             {error && (
@@ -76,7 +76,7 @@ export default function AdminLogin() {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                     className="pl-10 w-full py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6b7f3e] focus:border-transparent"
-                    placeholder="Email address"
+                    placeholder="البريد الإلكتروني"
                   />
                 </div>
               </div>
@@ -92,7 +92,7 @@ export default function AdminLogin() {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     className="pl-10 w-full py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6b7f3e] focus:border-transparent"
-                    placeholder="Password"
+                    placeholder="كلمة المرور"
                   />
                 </div>
               </div>
@@ -105,10 +105,10 @@ export default function AdminLogin() {
                 {isLoading ? (
                   <>
                     <FaSpinner className="animate-spin h-5 w-5 mr-2" />
-                    Logging in...
+                    جاري تسجيل الدخول...
                   </>
                 ) : (
-                  "Login"
+                  "تسجيل الدخول"
                 )}
               </button>
             </form>
@@ -118,7 +118,7 @@ export default function AdminLogin() {
         <div className="mt-6 text-center">
           <Link href="/" className="text-[#4a5a2b] hover:text-[#6b7f3e] flex items-center justify-center">
             <FaArrowLeft className="mr-2" />
-            Return to website
+            العودة إلى الموقع
           </Link>
         </div>
       </div>

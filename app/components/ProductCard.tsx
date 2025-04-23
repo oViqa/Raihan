@@ -16,20 +16,20 @@ interface ProductCardProps {
 // Helper function to get the appropriate icon for product categories
 const getProductIcon = (product: Product) => {
   const categoryMap: {[key: string]: React.ReactNode} = {
-    'herbs': <FaLeaf className="h-12 w-12 text-[#6b7f3e]" />,
-    'honey': <GiHoneycomb className="h-12 w-12 text-[#c17f24]" />,
-    'medicine': <FaHandHoldingMedical className="h-12 w-12 text-[#b54e32]" />,
+    'أعشاب': <FaLeaf className="h-12 w-12 text-[#6b7f3e]" />,
+    'عسل': <GiHoneycomb className="h-12 w-12 text-[#c17f24]" />,
+    'طب': <FaHandHoldingMedical className="h-12 w-12 text-[#b54e32]" />,
   };
   
   // Try to guess the category from the product name or description
   const productText = `${product.name} ${product.description || ''}`.toLowerCase();
   
   if (productText.includes('herb') || productText.includes('spice') || productText.includes('tea')) {
-    return categoryMap['herbs'];
+    return categoryMap['أعشاب'];
   } else if (productText.includes('honey') || productText.includes('syrup')) {
-    return categoryMap['honey'];
+    return categoryMap['عسل'];
   } else if (productText.includes('oil') || productText.includes('extract') || productText.includes('medicinal')) {
-    return categoryMap['medicine'];
+    return categoryMap['طب'];
   }
   
   // Default icon
@@ -117,7 +117,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             aria-label={`Inquire about ${product.name} on WhatsApp`}
           >
             <FiSend className="mr-2 h-4 w-4" />
-            <span>Inquire on WhatsApp</span>
+            <span>استفسر عبر واتساب</span>
           </button>
         </div>
       </div>

@@ -60,7 +60,7 @@ export default function RaihanLogo({
         size === 'md' ? 'text-xl' : 
         size === 'lg' ? 'text-2xl' : 'text-3xl'
       }`}>
-        <span className="text-[#4a5a2b]">Raihan</span>
+        <span className="text-[#4a5a2b]">ريحان</span>
         <span className="text-[#6b7f3e] ml-1">Admin</span>
       </div>
     </div>
