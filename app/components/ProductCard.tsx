@@ -117,7 +117,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             aria-label={`Inquire about ${product.name} on WhatsApp`}
           >
             <FiSend className="mr-2 h-4 w-4" />
-            <span>استفسر عبر واتساب</span>
+            <span>Demander sur WhatsApp</span>
           </button>
         </div>
       </div>

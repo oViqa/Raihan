@@ -177,7 +177,7 @@ export default function ProductsPage() {
               {selectedCategory ? getCategoryName(selectedCategory) : 'Natural Moroccan Herbs'}
             </h1>
             <p className={`text-[#8e846b] mb-6 max-w-2xl mx-auto transform transition-all duration-700 delay-100 ${pageLoaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}>
-              أعشاب مغربية مصنفة على أساس أصلها المحلي، تحمل علامات عريقة من التراث المغربي
+              Herbes marocaines classées selon leur origine locale, portant les marques ancestrales du patrimoine marocain
             </p>
             
             {/* Search Form */}
@@ -339,7 +339,7 @@ export default function ProductsPage() {
                   <div>
                     <h3 className="font-bold text-lg mb-3">Moroccan Tradition</h3>
                     <p className="text-sm opacity-90 mb-4 leading-relaxed">
-                      اكتشف المنتجات التي تم جمعها ومعالجتها باستخدام تقنيات عتيقة تمررت إلينا من جيل إلى جيل.
+                      Découvrez des produits récoltés et traités selon des techniques ancestrales transmises de génération en génération.
                     </p>
                     <a href="/about" className="inline-flex items-center text-sm font-medium text-white/80 hover:text-white transition-colors group">
                       Our Story <FaChevronRight className="ml-1 h-3 w-3 group-hover:translate-x-1 transition-transform" />

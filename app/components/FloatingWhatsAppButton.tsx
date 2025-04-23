@@ -63,7 +63,7 @@ const FloatingWhatsAppButton = ({
             <IoClose size={12} />
           </button>
           <p className="text-sm text-[#4a5a2b]">
-            لديك أسئلة حول منتجاتنا؟ راسلنا على واتساب!
+          Questions sur nos produits ? Contactez-nous sur WhatsApp !
           </p>
         </div>
       )}

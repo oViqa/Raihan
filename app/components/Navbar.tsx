@@ -6,9 +6,8 @@ import { usePathname } from 'next/navigation';
 import { getCategories } from '@/app/lib/category';
 import { Category } from '@/app/lib/database-schema';
 import { FiMenu, FiX } from 'react-icons/fi';
-import { GiHerbsBundle, GiMountainRoad } from 'react-icons/gi';
+import { GiHerbsBundle } from 'react-icons/gi';
 import { FaLeaf } from 'react-icons/fa';
-import LanguageSwitcher from './LanguageSwitcher';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -50,10 +49,12 @@ export default function Navbar() {
           {/* Logo and desktop navigation */}
           <div className="flex items-center">
             <Link href="/" className="flex-shrink-0 flex items-center">
-              <GiHerbsBundle className="h-8 w-8 text-[#6b7f3e]" />
-              <div className="ml-2 flex flex-col">
-                <span className="text-xl font-bold text-[#4a5a2b]">تعاونية ريحان</span>
-                <span className="text-xs text-[#8e846b]">منتجات طبيعية من جبال الأطلس</span>
+              <div className="bg-[#6b7f3e] rounded-full p-2">
+                <GiHerbsBundle className="h-8 w-8 text-white" />
+              </div>
+              <div className="ml-3 flex flex-col">
+                <span className="text-xl font-bold text-[#4a5a2b]">Coopérative Raihan</span>
+                <span className="text-xs text-[#8e846b]">Produits naturels de l'Atlas</span>
               </div>
             </Link>
             
@@ -66,7 +67,7 @@ export default function Navbar() {
                     : 'border-transparent text-[#6b7f3e] hover:text-[#4a5a2b] hover:border-[#d3c8ab]'
                 }`}
               >
-                Home
+                Accueil
               </Link>
               
               <Link 
@@ -95,15 +96,14 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Mobile menu button and language switcher (mobile) */}
-          <div className="flex items-center space-x-2 md:hidden">
-            <LanguageSwitcher />
+          {/* Mobile menu button */}
+          <div className="flex items-center md:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="inline-flex items-center justify-center p-2 rounded-md text-[#6b7f3e] hover:text-[#4a5a2b] hover:bg-[#f0ece2] focus:outline-none"
               aria-expanded={isMenuOpen}
             >
-              <span className="sr-only">{isMenuOpen ? 'Close menu' : 'Open menu'}</span>
+              <span className="sr-only">{isMenuOpen ? 'Fermer menu' : 'Ouvrir menu'}</span>
               {isMenuOpen ? (
                 <FiX className="block h-6 w-6" />
               ) : (
@@ -111,72 +111,69 @@ export default function Navbar() {
               )}
             </button>
           </div>
-          
-          {/* Language switcher (desktop) */}
-          <div className="hidden md:flex md:items-center">
-            <LanguageSwitcher />
-          </div>
         </div>
       </div>
 
       {/* Mobile menu */}
-      <div className={`${isMenuOpen ? 'block' : 'hidden'} md:hidden`}>
-        <div className="pt-2 pb-3 space-y-1 bg-[#f8f5ec]">
-          <Link 
-            href="/" 
-            className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium ${
-              pathname === '/' 
-                ? 'border-[#c17f24] text-[#4a5a2b] bg-[#f0ece2]' 
-                : 'border-transparent text-[#6b7f3e] hover:bg-[#f0ece2] hover:border-[#d3c8ab]'
-            }`}
-          >
-            Home
-          </Link>
-          
-          <Link 
-            href="/products" 
-            className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium ${
-              pathname === '/products' 
-                ? 'border-[#c17f24] text-[#4a5a2b] bg-[#f0ece2]' 
-                : 'border-transparent text-[#6b7f3e] hover:bg-[#f0ece2] hover:border-[#d3c8ab]'
-            }`}
-          >
-            All Products
-          </Link>
-          
-          {!loading && categories.map((category) => (
+      {isMenuOpen && (
+        <div className="md:hidden">
+          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <Link 
-              key={category.id}
-              href={`/products?category=${category.id}`}
+              href="/" 
               className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium ${
-                pathname === '/products' && new URLSearchParams(window.location.search).get('category') === category.id
+                pathname === '/' 
                   ? 'border-[#c17f24] text-[#4a5a2b] bg-[#f0ece2]' 
                   : 'border-transparent text-[#6b7f3e] hover:bg-[#f0ece2] hover:border-[#d3c8ab]'
               }`}
             >
-              {category.name}
+              Accueil
             </Link>
-          ))}
-          
-          <Link 
-            href="/about" 
-            className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium ${
-              pathname === '/about' 
-                ? 'border-[#c17f24] text-[#4a5a2b] bg-[#f0ece2]' 
-                : 'border-transparent text-[#6b7f3e] hover:bg-[#f0ece2] hover:border-[#d3c8ab]'
-            }`}
-          >
-            À Propos
-          </Link>
-          
-          {/* <Link 
-            href="/admin/login" 
-            className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-[#4a5a2b] bg-[#f0ece2] hover:bg-[#d3c8ab]"
-          >
-            Admin Portal
-          </Link> */}
+            
+            <Link 
+              href="/products" 
+              className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium ${
+                pathname === '/products' 
+                  ? 'border-[#c17f24] text-[#4a5a2b] bg-[#f0ece2]' 
+                  : 'border-transparent text-[#6b7f3e] hover:bg-[#f0ece2] hover:border-[#d3c8ab]'
+              }`}
+            >
+              All Products
+            </Link>
+            
+            {!loading && categories.map((category) => (
+              <Link 
+                key={category.id}
+                href={`/products?category=${category.id}`}
+                className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium ${
+                  pathname === '/products' && new URLSearchParams(window.location.search).get('category') === category.id
+                    ? 'border-[#c17f24] text-[#4a5a2b] bg-[#f0ece2]' 
+                    : 'border-transparent text-[#6b7f3e] hover:bg-[#f0ece2] hover:border-[#d3c8ab]'
+                }`}
+              >
+                {category.name}
+              </Link>
+            ))}
+            
+            <Link 
+              href="/about" 
+              className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium ${
+                pathname === '/about' 
+                  ? 'border-[#c17f24] text-[#4a5a2b] bg-[#f0ece2]' 
+                  : 'border-transparent text-[#6b7f3e] hover:bg-[#f0ece2] hover:border-[#d3c8ab]'
+              }`}
+            >
+              À Propos
+            </Link>
+            
+            {/* <Link 
+              href="/admin/login" 
+              className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-[#4a5a2b] bg-[#f0ece2] hover:bg-[#d3c8ab]"
+            >
+              Admin Portal
+            </Link> */}
+          </div>
         </div>
-      </div>
+      )}
     </nav>
   );
 } 
