@@ -26,6 +26,15 @@ export type Admin = {
   password: string; // Note: storing as plain text as requested
 };
 
+// SocialMediaLink type definition
+export type SocialMediaLink = {
+  id: string;
+  platform: string;
+  url: string;
+  icon: string;
+  created_at: string;
+};
+
 // Database functions for products
 export const productDB = {
   async getAll(): Promise<Product[]> {
@@ -234,5 +243,17 @@ export const adminDB = {
 
     if (error && error.code !== 'PGRST116') throw error;
     return data || null;
+  }
+};
+
+export const socialMediaDB = {
+  async getAll(): Promise<SocialMediaLink[]> {
+    const { data, error } = await supabase
+      .from('social_media_links')
+      .select('*')
+      .order('created_at', { ascending: true });
+
+    if (error) throw error;
+    return data || [];
   }
 }; 

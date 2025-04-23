@@ -80,21 +80,7 @@ export default function Navbar() {
                 Nos Produits
               </Link>
               
-              {/* {!loading && categories.slice(0, 3).map((category) => (
-                <Link 
-                  key={category.id}
-                  href={`/products?category=${category.id}`}
-                  className={`inline-flex items-center px-3 py-2 rounded-md text-sm font-medium border-b-2 ${
-                    pathname === `/products` && new URLSearchParams(window.location.search).get('category') === category.id
-                      ? 'border-[#c17f24] text-[#4a5a2b]' 
-                      : 'border-transparent text-[#6b7f3e] hover:text-[#4a5a2b] hover:border-[#d3c8ab]'
-                  }`}
-                >
-                  {category.name}
-                </Link>
-              ))} */}
-              
-              {/* <Link 
+              <Link 
                 href="/about" 
                 className={`inline-flex items-center px-3 py-2 rounded-md text-sm font-medium border-b-2 ${
                   pathname === '/about' 
@@ -102,9 +88,9 @@ export default function Navbar() {
                     : 'border-transparent text-[#6b7f3e] hover:text-[#4a5a2b] hover:border-[#d3c8ab]'
                 }`}
               >
-                <GiMountainRoad className="mr-1 h-4 w-4" />
-                Our Story
-              </Link> */}
+                <FaLeaf className="mr-1 h-4 w-4" />
+                À Propos
+              </Link>
             </div>
           </div>
 
@@ -183,7 +169,7 @@ export default function Navbar() {
                 : 'border-transparent text-[#6b7f3e] hover:bg-[#f0ece2] hover:border-[#d3c8ab]'
             }`}
           >
-            
+            À Propos
           </Link>
           
           {/* <Link 
