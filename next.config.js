@@ -9,11 +9,6 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-<<<<<<< HEAD
-    remotePatterns: [
-      {
-        hostname: 'volfubgmhuqlknugaxqf.supabase.co',
-=======
     domains: ['cdn.discordapp.com', 'volfubgmhuqlknugaxqf.supabase.co'],
     remotePatterns: [
       {
@@ -25,7 +20,6 @@ const nextConfig = {
         protocol: 'https',
         hostname: '**.supabase.co',
         pathname: '/**',
->>>>>>> refs/remotes/origin/main
       },
     ],
   },
