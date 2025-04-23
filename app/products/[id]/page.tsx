@@ -4,13 +4,13 @@ import { useEffect, useState } from 'react';
 import { useParams} from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FiShoppingBag, FiArrowLeft, FiPlus, FiMinus, FiCheck } from 'react-icons/fi';
+import { FiShoppingBag, FiArrowLeft } from 'react-icons/fi';
 import { FaLeaf, FaHandHoldingMedical, FaRegStar } from 'react-icons/fa6';
 import { GiHoneycomb, GiHerbsBundle, GiAfrica } from 'react-icons/gi';
 import { getProductById } from '@/app/lib/product';
 import { Product } from '@/app/lib/database-schema';
 import WhatsAppButton from '@/app/components/WhatsAppButton';
-import { formatPrice, getWhatsAppButtonProps } from '@/app/lib/whatsapp';
+import { getWhatsAppButtonProps } from '@/app/lib/whatsapp';
 import FloatingWhatsAppButton from '@/app/components/FloatingWhatsAppButton';
 
 // Helper function to get a fitting icon for the product
@@ -46,7 +46,6 @@ export default function ProductDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [imageLoading, setImageLoading] = useState(true);
-  const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState<'description' | 'benefits'>('description');
 
   useEffect(() => {
@@ -75,18 +74,6 @@ export default function ProductDetailPage() {
     
     fetchProduct();
   }, [params.id]);
-
-  const incrementQuantity = () => {
-    if (product && quantity < product.stock_quantity) {
-      setQuantity(quantity + 1);
-    }
-  };
-
-  const decrementQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-    }
-  };
 
   if (loading) {
     return (
@@ -126,8 +113,7 @@ export default function ProductDetailPage() {
     );
   }
 
-  const whatsAppProps = getWhatsAppButtonProps(product, quantity);
-  const isOutOfStock = product.stock_quantity === 0;
+  const whatsAppProps = getWhatsAppButtonProps(product);
   const category = getProductCategory(product);
 
   return (
@@ -182,45 +168,17 @@ export default function ProductDetailPage() {
                 {category.icon}
                 <span className="text-[#4a5a2b] text-sm font-medium">{category.label}</span>
               </div>
-              
-              {/* Stock badge */}
-              {product.stock_quantity <= 5 && product.stock_quantity > 0 ? (
-                <div className="absolute top-4 right-4">
-                  <span className="bg-[#c17f24] text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">
-                    Limited Stock
-                  </span>
-                </div>
-              ) : product.stock_quantity === 0 ? (
-                <div className="absolute top-4 right-4">
-                  <span className="bg-[#b54e32] text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">
-                    Out of Stock
-                  </span>
-                </div>
-              ) : null}
             </div>
 
             {/* Product Details */}
             <div className="p-8 md:p-10 flex flex-col h-full">
               <h1 className="text-3xl font-bold text-[#4a5a2b] mb-3">{product.name}</h1>
               
-              <div className="mb-2 flex items-center space-x-1">
+              <div className="mb-6 flex items-center space-x-1">
                 {[1, 2, 3, 4, 5].map((star) => (
                   <FaRegStar key={star} className="text-[#c17f24] h-4 w-4" />
                 ))}
                 <span className="text-[#8e846b] text-xs ml-1">Traditional Moroccan Quality</span>
-              </div>
-              
-              <div className="bg-[#f8f5ec] rounded-lg p-4 mb-6 flex items-center justify-between">
-                <span className="font-medium text-[#4a5a2b] flex items-center">
-                  <FiCheck className="mr-2 h-4 w-4 text-[#6b7f3e]" />
-                  {product.stock_quantity > 0 
-                    ? `${product.stock_quantity} units in stock` 
-                    : 'Currently unavailable'}
-                </span>
-                
-                <span className="text-2xl font-bold text-[#4a5a2b]">
-                  {formatPrice(product.price)}
-                </span>
               </div>
               
               {/* Tabs */}
@@ -250,99 +208,42 @@ export default function ProductDetailPage() {
                 
                 <div className="py-4">
                   {activeTab === 'description' ? (
-                    <div className="prose prose-sm max-w-none text-[#4a5a2b]">
-                      {product.description ? (
-                        <p className="leading-relaxed">{product.description}</p>
-                      ) : (
-                        <p className="text-[#8e846b] italic">No description available for this product.</p>
-                      )}
+                    <div className="prose text-[#4a5a2b]">
+                      <p className="text-[#4a5a2b] whitespace-pre-line">
+                        {product.description || 'No description available for this product. Please contact us for more information.'}
+                      </p>
                     </div>
                   ) : (
-                    <div className="space-y-3">
-                      <div className="flex items-start">
-                        <div className="bg-[#f8f5ec] p-2 rounded-full mr-3">
-                          <FaLeaf className="h-4 w-4 text-[#6b7f3e]" />
-                        </div>
-                        <div>
-                          <h4 className="font-medium text-[#4a5a2b]">100% Natural</h4>
-                          <p className="text-sm text-[#8e846b]">Grown without artificial chemicals or pesticides</p>
-                        </div>
-                      </div>
-                      <div className="flex items-start">
-                        <div className="bg-[#f8f5ec] p-2 rounded-full mr-3">
-                          <GiHerbsBundle className="h-4 w-4 text-[#6b7f3e]" />
-                        </div>
-                        <div>
-                          <h4 className="font-medium text-[#4a5a2b]">Traditional Methods</h4>
-                          <p className="text-sm text-[#8e846b]">Harvested and processed using time-honored techniques</p>
-                        </div>
-                      </div>
-                      <div className="flex items-start">
-                        <div className="bg-[#f8f5ec] p-2 rounded-full mr-3">
-                          <GiAfrica className="h-4 w-4 text-[#b54e32]" />
-                        </div>
-                        <div>
-                          <h4 className="font-medium text-[#4a5a2b]">Moroccan Origin</h4>
-                          <p className="text-sm text-[#8e846b]">Sourced directly from local farmers in Morocco</p>
-                        </div>
-                      </div>
+                    <div className="prose text-[#4a5a2b]">
+                      <ul className="space-y-2">
+                        <li className="flex items-start">
+                          <FaLeaf className="h-5 w-5 text-[#6b7f3e] mr-2 mt-0.5" />
+                          <span>100% Natural and authentic Moroccan product</span>
+                        </li>
+                        <li className="flex items-start">
+                          <FaLeaf className="h-5 w-5 text-[#6b7f3e] mr-2 mt-0.5" />
+                          <span>Ethically sourced from local Moroccan farmers</span>
+                        </li>
+                        <li className="flex items-start">
+                          <FaLeaf className="h-5 w-5 text-[#6b7f3e] mr-2 mt-0.5" />
+                          <span>Traditional harvesting methods preserved for generations</span>
+                        </li>
+                        <li className="flex items-start">
+                          <FaLeaf className="h-5 w-5 text-[#6b7f3e] mr-2 mt-0.5" />
+                          <span>Free from artificial additives and preservatives</span>
+                        </li>
+                      </ul>
                     </div>
                   )}
                 </div>
               </div>
               
-              {/* Quantity Selector and Purchase */}
               <div className="mt-auto">
-                {!isOutOfStock && (
-                  <div className="mb-6">
-                    <label className="text-sm font-medium mb-2 block text-[#8e846b]">QUANTITY</label>
-                    <div className="flex items-center">
-                      <button 
-                        onClick={decrementQuantity} 
-                        disabled={quantity <= 1}
-                        className="p-3 border border-[#d3c8ab] rounded-l-lg bg-white hover:bg-[#f8f5ec] disabled:opacity-50 disabled:cursor-not-allowed text-[#6b7f3e] transition-colors"
-                        aria-label="Decrease quantity"
-                      >
-                        <FiMinus className="h-4 w-4" />
-                      </button>
-                      
-                      <div className="px-6 py-3 border-t border-b border-[#d3c8ab] text-center min-w-[60px] text-lg font-medium text-[#4a5a2b] bg-white">
-                        {quantity}
-                      </div>
-                      
-                      <button 
-                        onClick={incrementQuantity} 
-                        disabled={quantity >= product.stock_quantity}
-                        className="p-3 border border-[#d3c8ab] rounded-r-lg bg-white hover:bg-[#f8f5ec] disabled:opacity-50 disabled:cursor-not-allowed text-[#6b7f3e] transition-colors"
-                        aria-label="Increase quantity"
-                      >
-                        <FiPlus className="h-4 w-4" />
-                      </button>
-                    </div>
-                  </div>
-                )}
+                <WhatsAppButton {...whatsAppProps} className="w-full" />
                 
-                {/* Purchase Button */}
-                <div>
-                  {isOutOfStock ? (
-                    <div className="p-5 bg-[#f8f5ec] text-[#8e846b] rounded-lg text-center font-medium border border-[#d3c8ab]">
-                      Currently Out of Stock
-                    </div>
-                  ) : (
-                    <>
-                      <WhatsAppButton 
-                        href={whatsAppProps.href}
-                        message="Buy via WhatsApp"
-                        className="w-full justify-center py-4 text-base font-bold mb-3"
-                        size="lg"
-                        fullWidth={true}
-                      />
-                      <p className="text-center text-[#8e846b] text-xs">
-                        Secure payment on delivery • Free shipping on orders over $50
-                      </p>
-                    </>
-                  )}
-                </div>
+                <p className="text-center text-[#8e846b] text-sm mt-4">
+                  Have questions about this product? Contact us directly on WhatsApp for more information.
+                </p>
               </div>
             </div>
           </div>

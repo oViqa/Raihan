@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getProducts, deleteProduct } from '@/app/lib/product';
-import { formatPrice } from '@/app/lib/whatsapp';
 import { FaEdit, FaPlus, FaTrash, FaSearch } from 'react-icons/fa';
 import { GiHerbsBundle } from 'react-icons/gi';
 import { Product } from '@/app/lib/database-schema';
@@ -149,14 +148,13 @@ export default function ProductsManagementPage() {
             <thead className="bg-[#f0ece2]">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-[#4a5a2b] uppercase tracking-wider">Product</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-[#4a5a2b] uppercase tracking-wider">Stock</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-[#4a5a2b] uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-[#d3c8ab]">
               {filteredProducts.length === 0 ? (
                 <tr>
-                  <td colSpan={3} className="px-6 py-10 text-center text-[#8e846b]">
+                  <td colSpan={2} className="px-6 py-10 text-center text-[#8e846b]">
                     {products.length === 0 ? (
                       <>
                         <GiHerbsBundle className="h-12 w-12 text-[#d3c8ab] mx-auto mb-3" />
@@ -200,20 +198,6 @@ export default function ProductsManagementPage() {
                           </div>
                         </div>
                       </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                        product.stock_quantity <= 0 
-                          ? 'bg-red-100 text-red-800'
-                          : product.stock_quantity <= 5
-                            ? 'bg-yellow-100 text-yellow-800'
-                            : 'bg-green-100 text-green-800'
-                      }`}>
-                        {product.stock_quantity <= 0 
-                          ? 'Out of stock' 
-                          : `${product.stock_quantity} in stock`
-                        }
-                      </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <div className="flex items-center space-x-3">

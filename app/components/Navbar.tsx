@@ -8,6 +8,7 @@ import { Category } from '@/app/lib/database-schema';
 import { FiMenu, FiX } from 'react-icons/fi';
 import { GiHerbsBundle, GiMountainRoad } from 'react-icons/gi';
 import { FaLeaf } from 'react-icons/fa';
+import LanguageSwitcher from './LanguageSwitcher';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -108,8 +109,9 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Mobile menu button */}
-          <div className="flex items-center md:hidden">
+          {/* Mobile menu button and language switcher (mobile) */}
+          <div className="flex items-center space-x-2 md:hidden">
+            <LanguageSwitcher />
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="inline-flex items-center justify-center p-2 rounded-md text-[#6b7f3e] hover:text-[#4a5a2b] hover:bg-[#f0ece2] focus:outline-none"
@@ -124,14 +126,9 @@ export default function Navbar() {
             </button>
           </div>
           
-          {/* Admin link (desktop) */}
+          {/* Language switcher (desktop) */}
           <div className="hidden md:flex md:items-center">
-            {/* <Link 
-              href="/admin/login" 
-              className="ml-4 px-3 py-2 rounded-md text-sm font-medium bg-[#f0ece2] text-[#4a5a2b] hover:bg-[#d3c8ab] transition-colors"
-            >
-              Admin Portal
-            </Link> */}
+            <LanguageSwitcher />
           </div>
         </div>
       </div>
