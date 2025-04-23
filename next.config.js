@@ -9,8 +9,24 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    domains: ['cdn.discordapp.com'],
+    domains: ['cdn.discordapp.com', 'volfubgmhuqlknugaxqf.supabase.co'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**volfubgmhuqlknugaxqf.supabase.co',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.supabase.co',
+        pathname: '/**',
+      },
+    ],
   },
+  // Add output configuration for Vercel
+  output: 'standalone',
+  // Disable source maps in production
+  productionBrowserSourceMaps: false,
 };
 
 module.exports = nextConfig; 
