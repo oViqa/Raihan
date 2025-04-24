@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin, FaYoutube, FaTiktok, FaWhatsapp } from 'react-icons/fa';
 import { socialMediaDB, SocialMediaLink } from '@/app/lib/database-schema';
+import SocialMediaButtons from '@/app/components/SocialMediaButtons';
 
 const iconMap: { [key: string]: React.ElementType } = {
   facebook: FaFacebook,
@@ -50,7 +51,9 @@ export default function AboutPage() {
           </div>
 
           {/* Social Media Buttons */}
-          <div className="flex justify-center items-center gap-4 mb-8">
+          <div className="flex flex-col gap-4 mb-8">
+            <SocialMediaButtons className="justify-center" />
+            
             {/* Instagram Button */}
             <a
               href="https://www.instagram.com/cooperative_raihan"
