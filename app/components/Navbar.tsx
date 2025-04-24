@@ -91,7 +91,7 @@ export default function Navbar() {
                 }`}
               >
                 <FaLeaf className="mr-1 h-4 w-4" />
-                À Propos
+                Contact
               </Link>
             </div>
           </div>
@@ -162,7 +162,7 @@ export default function Navbar() {
                   : 'border-transparent text-[#6b7f3e] hover:bg-[#f0ece2] hover:border-[#d3c8ab]'
               }`}
             >
-              À Propos
+              Contact
             </Link>
             
             {/* <Link 
