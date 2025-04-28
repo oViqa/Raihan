@@ -311,7 +311,7 @@ function ProductsContent() {
                       className="h-4 w-4 text-[#6b7f3e] border-[#d3c8ab] focus:ring-[#6b7f3e]"
                     />
                     <label htmlFor="category-all" className="ml-3 text-[#4a5a2b] font-medium cursor-pointer flex-1">
-                      All Products
+                      Nos Produits
                     </label>
                     <span className="bg-[#f0ece2] text-[#8e846b] px-3 py-1 rounded-full text-xs">
                       {products.length}

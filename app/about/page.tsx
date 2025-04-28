@@ -100,11 +100,7 @@ export default function AboutPage() {
                   </a>
                 );
               })
-            ) : (
-              <div className="col-span-full text-center py-8 text-[#6b7f3e]">
-                Les liens des réseaux sociaux seront ajoutés prochainement
-              </div>
-            )}
+            ) : null}
           </div>
 
           {/* Additional Information */}

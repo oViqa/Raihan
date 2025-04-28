@@ -69,7 +69,7 @@ export default function ContactPage() {
               <FaEnvelope className="text-4xl text-[#6b7f3e] mb-4" />
               <h3 className="text-lg font-semibold text-[#4a5a2b] mb-2">Email</h3>
               <p className="text-[#8e846b] text-center">
-                contact@cooperative-raihan.com
+                cooperative.raihan@gmail.com
               </p>
             </div>
           </div>
@@ -116,6 +116,32 @@ export default function ContactPage() {
                 <p className="text-[#8e846b]">10h00 - 16h00</p>
               </div>
             </div>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+            {loading ? (
+              <div className="col-span-full text-center py-8">
+                Chargement...
+              </div>
+            ) : socialLinks.length > 0 ? (
+              socialLinks.map((link) => {
+                const Icon = iconMap[link.platform.toLowerCase()] || FaFacebook;
+                return (
+                  <a
+                    key={link.id}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center p-4 bg-[#f0ece2] rounded-lg hover:bg-[#d3c8ab] transition-colors"
+                  >
+                    <Icon className="text-2xl ml-2 text-[#4a5a2b]" />
+                    <span className="text-[#4a5a2b] font-medium">
+                      {link.platform}
+                    </span>
+                  </a>
+                );
+              })
+            ) : null}
           </div>
         </div>
       </div>

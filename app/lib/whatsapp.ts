@@ -1,7 +1,7 @@
 import { Product } from './database-schema';
 
 // Default WhatsApp phone number - replace with your business number
-const DEFAULT_PHONE = '1234567890';
+const DEFAULT_PHONE = '212675466385';
 
 // We'll keep the formatPrice function for internal backend use
 export const formatPrice = (price: number): string => {

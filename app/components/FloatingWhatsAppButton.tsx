@@ -10,7 +10,7 @@ interface FloatingWhatsAppButtonProps {
 }
 
 const FloatingWhatsAppButton = ({
-  phoneNumber = "675466385", // Default phone number (replace with your actual number)
+  phoneNumber = "212675466385", // Default phone number
   message = "Hello! I am interested in your products.",
 }: FloatingWhatsAppButtonProps) => {
   const [isVisible, setIsVisible] = useState(false)

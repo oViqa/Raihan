@@ -7,6 +7,8 @@ import Link from 'next/link';
 import { FiShoppingBag, FiArrowLeft } from 'react-icons/fi';
 import { FaLeaf, FaHandHoldingMedical, FaRegStar } from 'react-icons/fa6';
 import { GiHoneycomb, GiHerbsBundle, GiAfrica } from 'react-icons/gi';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBottleDroplet } from '@fortawesome/free-solid-svg-icons';
 import { getProductById } from '@/app/lib/product';
 import { Product } from '@/app/lib/database-schema';
 import WhatsAppButton from '@/app/components/WhatsAppButton';
@@ -29,7 +31,7 @@ const getProductCategory = (product: Product): {icon: React.ReactNode, label: st
     };
   } else if (productText.includes('oil') || productText.includes('extract') || productText.includes('medicinal')) {
     return {
-      icon: <FaHandHoldingMedical className="h-6 w-6 text-[#b54e32]" />,
+      icon: <FontAwesomeIcon icon={faBottleDroplet} className="h-6 w-6 text-[#b54e32]" />,
       label: 'Medicinal Products'
     };
   }

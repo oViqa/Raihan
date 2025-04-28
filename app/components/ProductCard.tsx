@@ -6,6 +6,8 @@ import Image from 'next/image';
 import { FiShoppingBag, FiSend, FiExternalLink } from 'react-icons/fi';
 import { FaLeaf, FaHandHoldingMedical } from 'react-icons/fa6';
 import { GiHoneycomb } from 'react-icons/gi';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBottleDroplet } from '@fortawesome/free-solid-svg-icons';
 import { Product } from '@/app/lib/database-schema';
 import { createWhatsAppLink } from '@/app/lib/whatsapp';
 
@@ -18,7 +20,7 @@ const getProductIcon = (product: Product) => {
   const categoryMap: {[key: string]: React.ReactNode} = {
     'أعشاب': <FaLeaf className="h-12 w-12 text-[#6b7f3e]" />,
     'عسل': <GiHoneycomb className="h-12 w-12 text-[#c17f24]" />,
-    'طب': <FaHandHoldingMedical className="h-12 w-12 text-[#b54e32]" />,
+    'طب': <FontAwesomeIcon icon={faBottleDroplet} className="h-12 w-12 text-[#b54e32]" />,
   };
   
   // Try to guess the category from the product name or description

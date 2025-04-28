@@ -137,7 +137,7 @@ export default function Navbar() {
                   : 'border-transparent text-[#6b7f3e] hover:bg-[#f0ece2] hover:border-[#d3c8ab]'
               }`}
             >
-              All Products
+              Nos Produits
             </Link>
             
             {!loading && categories.map((category) => (
