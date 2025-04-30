@@ -46,7 +46,7 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Hero Section */}
-      <section className="relative h-screen bg-[url('https://cdn.discordapp.com/attachments/1118652078659739739/1364762939864649788/Untitled108_20250424013945.png')] bg-cover bg-center">
+      <section className="relative h-screen bg-[url('https://img.freepik.com/photos-premium/composition-produit-cosmetique-bio-naturel-illustration-ai-generative_118124-13187.jpg')] bg-cover bg-center">
         <div className="absolute inset-0 bg-black/50"></div>
         <div className="container mx-auto px-4 relative z-10 h-full flex flex-col justify-center items-center text-center">
           <GiHerbsBundle className="text-[#c17f24] h-20 w-20 mb-6 animate-pulse" />
