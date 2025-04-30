@@ -37,7 +37,7 @@ export default function AboutPage() {
     <div className="min-h-screen bg-[#f8f5ec] py-12">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white rounded-lg shadow-lg p-8">
-          <h1 className="text-3xl font-bold text-[#4a5a2b] text-center mb-8">
+          <h1 className="text-3xl font-bold text-white text-center mb-8">
             À Propos de Coopérative Raihan
           </h1>
           

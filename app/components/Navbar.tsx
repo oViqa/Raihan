@@ -53,7 +53,7 @@ export default function Navbar() {
                 <GiHerbsBundle className="h-8 w-8 text-white" />
               </div>
               <div className="ml-3 flex flex-col">
-                <span className="text-xl font-bold text-white">Coopérative Raihan</span>
+                <span className="text-xl font-bold text-[#ffffff]">Coopérative Raihan</span>
                 <span className="text-xs text-[#8e846b]">Produits naturels de l'Atlas</span>
               </div>
             </Link>
