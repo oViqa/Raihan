@@ -50,11 +50,11 @@ export default function Home() {
         <div className="absolute inset-0 bg-black/50"></div>
         <div className="container mx-auto px-4 relative z-10 h-full flex flex-col justify-center items-center text-center">
           <GiHerbsBundle className="text-[#c17f24] h-20 w-20 mb-6 animate-pulse" />
-          <h1 className="text-5xl md:text-7xl font-bold mb-4 text-white moroccan-heading slow-green-pulse">
+        <p className="text-30xl md:text-5xl mb-4 text-white font-bold">
             Coopérative Raihan
-          </h1>
+          </p>
           <p className="text-xl md:text-2xl mb-10 text-[#f0ece2] max-w-2xl">
-            Découvrez des produits naturels authentiques récoltés par des générations d'agriculteurs locaux des montagnes de l'Atlas au Maroc
+          Bienvenue chez Raihan Cooperative — nous créons des produits durables et de qualité, faits avec soin pour vous et pour notre communauté.
           </p>
           <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
             <Link
